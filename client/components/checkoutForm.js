@@ -32,7 +32,7 @@ function CheckoutForm() {
     // event.preventDefault();
 
     // // Use elements.getElement to get a reference to the mounted Element.
-    const cardElement = elements.getElement(CardElement);
+    const cardElement = elements.getElement();
     //CardElement is imported from Stripe
     //elements is the instance of the useElement Stripe hook
 

@@ -181,9 +181,9 @@ function RestaurantList(props) {
     return (
       <Container>
         <Row xs="3">{restList}</Row>
-        {/* <DishesList /> */}
+        <DishesList />
         {/* <Row xs="3">{renderDishes(restaurantID)}</Row> */}
-        <Fetchdish id={restaurantID} />
+        {/* <Fetchdish id={restaurantID} /> */}
       </Container>
     );
   } else {

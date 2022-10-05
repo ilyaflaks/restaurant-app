@@ -12,15 +12,16 @@ import RestaurantList from "../components/restaurantList";
 import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 function Home() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/";
-  console.log(`URL: ${process.env.NEXT_PUBLIC_API_URL}`);
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/graphql";
+  //console.log(`URL: ${process.env.NEXT_PUBLIC_API_URL}`);
   const [query, setQuery] = useState("");
 
-  console.log("process.env.NEXT_PUBLIC_API_URL:");
-  console.log(process.env.NEXT_PUBLIC_API_URL);
+  // console.log("process.env.NEXT_PUBLIC_API_URL:");
+  // console.log(process.env.NEXT_PUBLIC_API_URL);
 
-  console.log("API_URL: ");
-  console.log(API_URL);
+  // console.log("API_URL: ");
+  // console.log(API_URL);
   const cache = new InMemoryCache();
 
   const client = new ApolloClient({
@@ -28,19 +29,22 @@ function Home() {
     cache: new InMemoryCache(),
   });
 
-  client
-    .query({
-      query: gql`
-        query Restaurants {
-          restaurants {
-            id
-            name
-            description
-          }
-        }
-      `,
-    })
-    .then((result) => console.log(result));
+  // client
+  //   .query({
+  //     query: gql`
+  //       query Restaurants {
+  //         restaurants {
+  //           id
+  //           name
+  //           description
+  //           dishes {
+  //             name
+  //           }
+  //         }
+  //       }
+  //     `,
+  //   })
+  //   .then((result) => console.log(result));
 
   return (
     <ApolloProvider client={client}>
