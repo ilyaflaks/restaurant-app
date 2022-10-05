@@ -90,8 +90,8 @@ app.get("/", (req, res) => {
   res.send("My app");
 });
 
-app.listen(4000, function () {
-  console.log(`server running on port 4000`);
+app.listen(PORT, function () {
+  console.log(`server running on port ${PORT}`);
   console.log(`gql path is ${apolloServer.graphqlPath}`);
 });
 
