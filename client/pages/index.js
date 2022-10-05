@@ -12,8 +12,7 @@ import RestaurantList from "../components/restaurantList";
 import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 function Home() {
-  const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/graphql";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/";
   console.log(`URL: ${process.env.NEXT_PUBLIC_API_URL}`);
   const [query, setQuery] = useState("");
 
