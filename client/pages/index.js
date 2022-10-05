@@ -18,12 +18,18 @@ import RestaurantList from "../components/restaurantList";
 import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 function Home() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/graphql";
   console.log(`URL: ${process.env.NEXT_PUBLIC_API_URL}`);
   const [query, setQuery] = useState("");
+
+  console.log("process.env.NEXT_PUBLIC_API_URL:");
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+
+  console.log("API_URL: ");
+  console.log(API_URL);
   //const link = new HttpLink({ uri: `${API_URL}` });
   const cache = new InMemoryCache();
-  //const client = new ApolloClient({ link, cache });
 
   const client = new ApolloClient({
     uri: API_URL,
@@ -43,8 +49,6 @@ function Home() {
       `,
     })
     .then((result) => console.log(result));
-
-  //console.log("link: " + JSON.stringify(link));
 
   return (
     <ApolloProvider client={client}>
