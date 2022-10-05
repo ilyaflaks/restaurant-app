@@ -76,6 +76,10 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
 });
 
+app.get("/", (req, res) => {
+  res.send("My app");
+});
+
 app.get("/test", async (req, res) => {
   var data = [];
   try {
