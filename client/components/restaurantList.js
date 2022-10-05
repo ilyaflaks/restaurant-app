@@ -49,6 +49,12 @@ function RestaurantList(props) {
   const [state, setState] = useState(cart);
   const [showDishes, setShowDishes] = useState(false);
 
+  useEffect(() => {
+    console.log("Hoooooook!");
+    console.log("restaurantID");
+    console.log(restaurantID);
+  }, [restaurantID]);
+
   const GET_RESTAURANTS = gql`
     query Restaurants {
       restaurants {
