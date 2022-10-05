@@ -19,7 +19,7 @@ require("dotenv").config();
 app.use(bodyParser.json());
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "index.js"));
+  res.sendFile(path.resolve(__dirname, "client/pages", "index.js"));
 });
 
 const typeDefs = gql`
