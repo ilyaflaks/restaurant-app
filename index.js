@@ -19,7 +19,7 @@ require("dotenv").config();
 app.use(bodyParser.json());
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "pages", "index.js"));
 });
 
 const typeDefs = gql`
@@ -32,6 +32,7 @@ const typeDefs = gql`
     name: String
     price: Int
     description: String
+    id: Int
   }
 
   type Restaurant {

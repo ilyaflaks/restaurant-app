@@ -16,43 +16,50 @@ import {
   Col,
 } from "reactstrap";
 
-// function DishesList(props) {
-//   const GET_DISHES = gql`
-//     query Restaurants {
-//       restaurants {
-//         dishes {
-//           name
-//           price
-//           description
-//         }
-//       }
-//     }
-//   `;
+function Fetchdish(props) {
+  console.log("props.id");
+  console.log(props.id);
+  const GET_RESTAURANT_DISHES = gql`
+    query ($id: ID!) {
+      restaurants(id: $id) {
+        id
+        name
+        dishes {
+          id
+          name
+          description
+          price
+        }
+      }
+    }
+  `;
 
-//   const { loading, error, data } = useQuery(GET_DISHES);
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>ERROR</p>;
-//   if (!data) return <p>Not found</p>;
-//   console.log(`Dishes Query Data:`);
-//   console.log(data);
+  const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
+    variables: { id: props.id },
+  });
 
-//   return (
-//     <div>
-//       <h4>Dishessss</h4>
-//     </div>
-//   );
-// }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>ERROR here</p>;
+  if (!data) return <p>Not found</p>;
+
+  console.log("data from fetch dishes:");
+  console.log(data);
+  // let dishes = data;
+  // console.log("inside fetch dishes, dishes:");
+  // console.log(dishes);
+
+  return <h1>We in dishes fetch {data.length}</h1>;
+}
 
 function RestaurantList(props) {
   const [restaurantID, setRestaurantID] = useState(0);
   const { cart } = useContext(AppContext);
   const [state, setState] = useState(cart);
   const [showDishes, setShowDishes] = useState(false);
+  const { addItem } = useContext(AppContext);
 
   useEffect(() => {
-    console.log("Hoooooook!");
-    console.log("restaurantID");
-    console.log(restaurantID);
+    setShowDishes(true);
   }, [restaurantID]);
 
   const GET_RESTAURANTS = gql`
@@ -65,6 +72,7 @@ function RestaurantList(props) {
           name
           price
           description
+          id
         }
       }
     }
@@ -82,20 +90,65 @@ function RestaurantList(props) {
       return res.name.toLowerCase().includes(props.search);
     }) || [];
 
-  // let selectedRestaurant = [];
-  // function DishesList() {
-  //   if (selectedRestaurant) {
-  //     const menu = selectedRestaurant.dishes.map((dish) => {
-  //       return (
-  //         <div>
-  //           <h3>{dish.name}</h3>
-  //           <br />
-  //           <h4>{dish.price}</h4>
-  //         </div>
-  //       );
-  //     });
-  //   }
-  // }
+  function DishesList() {
+    if (restaurantID) {
+      console.log("data.restaurants:");
+      console.log(data.restaurants);
+      let selectedRes = data.restaurants.filter(
+        (rest) => rest.id === restaurantID
+      );
+      console.log("selectedRes");
+      console.log(selectedRes);
+
+      let restName = selectedRes[0].name;
+      console.log("restName");
+      console.log(restName);
+      let dishArray = selectedRes[0].dishes;
+
+      console.log("dishArray");
+      console.log(dishArray);
+      const mapThroughDishes = dishArray.map((dish) => (
+        <Col xs="6" sm="4" style={{ padding: 0 }} key={dish.id}>
+          <Card style={{ margin: "0 10px" }}>
+            {/* <CardImg
+              top={true}
+              style={{ height: 150, width: 150 }}
+              src={`http://localhost:1337${res.image.url}`}
+            /> */}
+            <CardBody>
+              <CardTitle>{dish.name}</CardTitle>
+              <CardText>${dish.price}</CardText>
+              <CardText>{dish.description}</CardText>
+            </CardBody>
+            <div className="card-footer">
+              <Button
+                // color="info"
+                outline
+                color="primary"
+                onClick={() => addItem(dish)}
+              >
+                + Add To Cart
+              </Button>
+            </div>
+          </Card>
+        </Col>
+      ));
+
+      return (
+        <div>
+          <br /> <h4>{restName} Menu</h4>
+          <br />
+          {mapThroughDishes}
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
+  }
+
+  // const renderDishes = (restaurantID) => {
+  //   return <Dishes restId={restaurantID}> </Dishes>;
+  // };
 
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
@@ -114,11 +167,8 @@ function RestaurantList(props) {
             <Button
               color="info"
               onClick={() => {
+                //    setShowDishes(false);
                 setRestaurantID(res.id);
-                // console.log(res.id);
-                // console.log(restaurantID);
-
-                setShowDishes(true);
               }}
             >
               Explore
@@ -131,6 +181,9 @@ function RestaurantList(props) {
     return (
       <Container>
         <Row xs="3">{restList}</Row>
+        {/* <DishesList /> */}
+        {/* <Row xs="3">{renderDishes(restaurantID)}</Row> */}
+        <Fetchdish id={restaurantID} />
       </Container>
     );
   } else {

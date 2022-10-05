@@ -17,13 +17,24 @@ function MyApp(props) {
 
   ////empty function exported from context. Defined here
   addItem = (item) => {
+    console.log("in AddItem in _app");
     let { items } = state.cart;
+    console.log("items: ");
+    console.log(items);
+    console.log("items length: " + items.length);
+
     //state stores the items and the qty locally in state.cart = items
     //check for item already in cart
     //if not in cart, add item if item is found increase quanity ++
     let foundItem = true;
     if (items.length > 0) {
+      console.log("inside the if block");
+
       foundItem = items.find((i) => i.id === item.id);
+      console.log("foundItem: " + foundItem);
+      //console.log("i.id: " + i.id);
+      console.log("item.id: " + item.id);
+
       //if cart is not empty, search for item matching the id of the item that called addItem
       //assign it to foundItem. If none found foundItem becomes false
       if (!foundItem) foundItem = false;
@@ -36,9 +47,10 @@ function MyApp(props) {
     if (!foundItem) {
       //foundItem is false when cart is empty or when item.id doesnt match whats in it
       //set quantity property to 1
-
+      console.log("if block, foundItem is falsy");
       let temp = JSON.parse(JSON.stringify(item));
-
+      console.log("temp:");
+      console.log(temp);
       //you can't set item quantity directly because this is React
       temp.quantity = 1;
       var newCart = {
@@ -50,6 +62,9 @@ function MyApp(props) {
     } else {
       //foundItem is truthy, meaning there are things in the cart and the item added matches whats in the cart
       // we already have it so just increase quantity ++
+      console.log(
+        "else block, foundItem is truthy meaning there are things in the cart and the item added matches whats in the cart"
+      );
       console.log(`Total so far:  ${state.cart.total}`);
       //not sure if newCart is in scope of this else statement but it works...
       newCart = {

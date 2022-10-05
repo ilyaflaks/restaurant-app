@@ -12,8 +12,12 @@ import {
   Row,
   Col,
 } from "reactstrap";
-function Dishes({ restId }) {
-  const [restaurantID, setRestaurantID] = useState();
+function Dishes({ restaurantID }) {
+  console.log("in Dishes component");
+  console.log("restaurantID");
+  console.log(restaurantID);
+
+  //const [restaurantID, setRestaurantID] = useState();
   const { addItem } = useContext(AppContext);
 
   const GET_RESTAURANT_DISHES = gql`
@@ -26,9 +30,6 @@ function Dishes({ restId }) {
           name
           description
           price
-          image {
-            url
-          }
         }
       }
     }
@@ -37,7 +38,7 @@ function Dishes({ restId }) {
   const router = useRouter();
 
   const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
-    variables: { id: restId },
+    variables: { id: restaurantID },
   });
 
   if (loading) return <p>Loading...</p>;
@@ -45,12 +46,13 @@ function Dishes({ restId }) {
   if (!data) return <p>Not found</p>;
 
   let restaurant = data.restaurant;
-  // console.log("inside dishes");
-  // console.log(restaurant);
-  // console.log(restaurant.dishes);
-  // console.log("restID: " + restId);
+  console.log("inside dishes");
+  console.log(restaurant);
+  console.log(restaurant.dishes);
+  console.log("restaurantID: " + restaurantID);
 
   if (restId > 0) {
+    console.log("inside the if block, restaurant matches the search query ");
     //if a restaurant matches the search query the id should be 1, 2, 3 or 4, etc
     //map through the dishes of this restaurant and return cards with image, name, descripton, price
     return (
@@ -58,11 +60,11 @@ function Dishes({ restId }) {
         {restaurant.dishes.map((res) => (
           <Col xs="6" sm="4" style={{ padding: 0 }} key={res.id}>
             <Card style={{ margin: "0 10px" }}>
-              <CardImg
+              {/* <CardImg
                 top={true}
                 style={{ height: 150, width: 150 }}
                 src={`http://localhost:1337${res.image.url}`}
-              />
+              /> */}
               <CardBody>
                 <CardTitle>{res.name}</CardTitle>
                 <CardText>{res.description}</CardText>
