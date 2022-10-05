@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 import Cart from "../components/cart";
-// import {
-//   ApolloProvider,
-//   ApolloClient,
-//   HttpLink,
-//   InMemoryCache,
-// } from "@apollo/client";
 
 import {
   ApolloClient,
@@ -28,7 +22,6 @@ function Home() {
 
   console.log("API_URL: ");
   console.log(API_URL);
-  //const link = new HttpLink({ uri: `${API_URL}` });
   const cache = new InMemoryCache();
 
   const client = new ApolloClient({
