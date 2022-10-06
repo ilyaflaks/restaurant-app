@@ -40,12 +40,6 @@ function Login(props) {
   // }, []);
 
   const { user, setUser, isAuthenticated } = appContext;
-  // console.log("user from appContext in login:");
-  // console.log(user);
-  // console.log("setUser from appContext in login:");
-  // console.log(setUser);
-  // console.log("isAuthenticated from appContext in login:");
-  // console.log(isAuthenticated);
 
   onAuthStateChanged(auth, (currentUser) => {
     console.log("currentUser:");
