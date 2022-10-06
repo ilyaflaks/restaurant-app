@@ -10,7 +10,6 @@ const { Testcollections } = require("./models");
 const { ApolloServer, gql } = require("apollo-server-express");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const http = require("http");
-
 const cors = require("cors");
 const path = require("path");
 
@@ -116,8 +115,9 @@ app.post("/payment", cors(), async (req, res) => {
 
 app.get("*", (req, res) => {
   console.log("---------------------");
+  console.log(__dirname);
   // res.send("My app");
-  res.sendFile(__dirname, ".next", "server", " pages", "index.html");
+  res.sendFile(path.join(__dirname, ".next", "server", " pages", "index.html"));
 });
 
 app.listen(PORT, function () {
