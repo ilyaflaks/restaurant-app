@@ -113,9 +113,12 @@ app.post("/payment", cors(), async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   console.log("--------------------THIS IS NEW-");
-  console.log(path.join(__dirname, ".next", "server", "pages", "index.html"));
+  console.log(
+    path.join(__dirname, ".next", "static", "chunks", "pages", "index.js")
+  );
+  //.next/server/pages/index.html
   // res.send("My app");
   //  res.sendFile(path.join(__dirname, ".next", "server", "pages", "index.html"));
 });

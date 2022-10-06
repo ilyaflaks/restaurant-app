@@ -2,6 +2,7 @@
   "name": "restaurant-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "www.heroku.com/ilya",
   "scripts": {
     "dev": "next",
     "build": "next build",

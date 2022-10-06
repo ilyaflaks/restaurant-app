@@ -13,9 +13,12 @@ import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 function Home() {
   const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/graphql";
+    process.env.NEXT_PUBLIC_API_URL || //heroku.com/Ilya.../graphql
+    //https://ilya-restaurant-app.herokuapp.com/graphql
+    "http://localhost:4000/graphql";
   //console.log(`URL: ${process.env.NEXT_PUBLIC_API_URL}`);
   const [query, setQuery] = useState("");
+  //fetch("/api/buldlog").then();
 
   // console.log("process.env.NEXT_PUBLIC_API_URL:");
   // console.log(process.env.NEXT_PUBLIC_API_URL);
