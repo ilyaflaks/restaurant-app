@@ -6,8 +6,11 @@ import Layout from "../components/layout";
 import Cookie from "js-cookie";
 
 function MyApp(props) {
-  var { cart, addItem, removeItem, user, setUser } = useContext(AppContext);
+  var { cart, addItem, removeItem, user, setUser, isAuthenticated } =
+    useContext(AppContext);
   const [state, setState] = useState({ cart: cart });
+  const [userSignedin, setUserSignedIn] = useState({});
+  const [authed, setAuthed] = useState(false);
   const { Component, pageProps } = props;
 
   console.log("AppContext:");
@@ -17,11 +20,11 @@ function MyApp(props) {
   console.log("appContext");
   console.log(appContext);
   console.log("_app appContext.isAuthenticated");
-  console.log(appContext.isAuthenticated);
-  const authed = appContext.isAuthenticated;
+  // console.log(appContext.isAuthenticated);
+  // const authed = appContext.isAuthenticated;
 
-  console.log("authed");
-  console.log(authed);
+  // console.log("authed");
+  // console.log(authed);
 
   console.log("_app appContext.user");
   console.log(appContext.user);
@@ -30,17 +33,24 @@ function MyApp(props) {
   console.log(appContext.currentUser);
 
   ////Not called anywhere yet
-  setUser = (currentUser, isAuthenticated) => {
+  setUser = (currentUser) => {
     //    setState({ user });
     console.log("setUser in app called");
     console.log("currentUser (we are in setUser in app btw): ");
     console.log(currentUser);
+    setUserSignedIn(currentUser);
     if (currentUser) {
-      isAuthenticated = true;
+      setAuthed(true);
     }
     console.log("isAuthenticated (we are in setUser in app btw): ");
     console.log(isAuthenticated);
   };
+
+  console.log("_app under setUser. userSignedin:");
+  console.log(userSignedin);
+
+  console.log("_app under setUser. authed:");
+  console.log(authed);
 
   ////empty function exported from context. Defined here
   addItem = (item) => {
@@ -155,8 +165,8 @@ function MyApp(props) {
         cart: state.cart,
         addItem: addItem,
         removeItem: removeItem,
-        isAuthenticated: false,
-        user: false,
+        isAuthenticated: authed,
+        user: userSignedin,
         setUser: setUser,
       }}
     >
@@ -168,7 +178,6 @@ function MyApp(props) {
           crossOrigin="anonymous"
         />
       </Head>
-      {/* Component and pageProps are props of MyApp. Where are they defined? */}
       <Layout>
         <Component {...pageProps} />
       </Layout>

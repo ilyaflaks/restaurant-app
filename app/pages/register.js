@@ -24,11 +24,9 @@ import {
 } from "firebase/auth";
 import { auth } from "../components/firebase-config";
 
-////END MY FIREBASE CODDE
-
 const Register = () => {
   // const [data, setData] = useState({ email: "", username: "", password: "" });
-  ////from tutorial
+
   const [registerUsername, setRegisterUsername] = useState("");
 
   const [registerEmail, setRegisterEmail] = useState("");
@@ -38,11 +36,15 @@ const Register = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState("false");
   const [showForm, setShowForm] = useState(true);
-
-  ////
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const appContext = useContext(AppContext);
+
+  const { user, setUser, isAuthenticated } = appContext;
+  console.log("in Register, user:");
+  console.log(user);
+  console.log("in Register, isAuthenticated:");
+  console.log(isAuthenticated);
 
   const register = async () => {
     try {
@@ -93,10 +95,6 @@ const Register = () => {
                       <Label>Username:</Label>
                       <Input
                         disabled={loading}
-                        // onChange={(e) =>
-                        //   setData({ ...data, username: e.target.value })
-                        // }
-                        // value={data.username}
                         onChange={(event) => {
                           setRegisterUsername(event.target.value);
                           console.log(
@@ -113,10 +111,6 @@ const Register = () => {
                     <FormGroup>
                       <Label>Email:</Label>
                       <Input
-                        // onChange={(e) =>
-                        //   setData({ ...data, email: e.target.value })
-                        // }
-                        // value={data.email}
                         onChange={(event) => {
                           setRegisterEmail(event.target.value);
                           console.log(
@@ -133,10 +127,6 @@ const Register = () => {
                     <FormGroup style={{ marginBottom: 30 }}>
                       <Label>Password:</Label>
                       <Input
-                        // onChange={(e) =>
-                        //   setData({ ...data, password: e.target.value })
-                        // }
-                        // value={data.password}
                         onChange={(event) => {
                           setRegisterPassword(event.target.value);
                           console.log(
@@ -163,36 +153,6 @@ const Register = () => {
                         color="primary"
                         disabled={loading}
                         onClick={register}
-
-                        //setLoading(true);
-
-                        // registerUser(data.username, data.email, data.password)
-                        //   .then((res) => {
-                        //     console.log("registerUser func called");
-                        //     // set authed user in global context object
-                        //     console.log(
-                        //       data.username,
-                        //       data.email,
-                        //       data.password
-                        //     );
-                        //     console.log("res.data.user");
-
-                        //     console.log(res.data.user);
-                        //     appContext.setUser(res.data.user);
-                        //     console.log("appContext: ");
-                        //     console.log(appContext);
-                        //     console.log("user: " + appContext.user);
-                        //     setLoading(false);
-                        //     console.log(
-                        //       `registered user: ${JSON.stringify(res.data)}`
-                        //     );
-                        //   })
-                        // .catch((error) => {
-                        //   console.log(`error in register: ${error}`);
-                        //   //setError(error.response.data);
-                        //   setLoading(false);
-                        // });
-                        //   }}
                       >
                         {loading ? "Loading.." : "Submit"}
                       </Button>
@@ -202,6 +162,7 @@ const Register = () => {
                   <div>
                     <h4>Thank you for signing up! </h4>
                     <h5>An account has been created for {registerEmail}</h5>
+                    <h5>You are now logged in</h5>
                   </div>
                 )}
               </Form>

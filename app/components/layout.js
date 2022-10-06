@@ -5,18 +5,32 @@ import Head from "next/head";
 import Link from "next/link";
 import { Container, Nav, NavItem } from "reactstrap";
 import AppContext from "./context";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import { auth } from "../components/firebase-config";
 
 const Layout = (props) => {
   const title = "Your Fav Rest App";
-  const { user, isAuthenticated } = useContext(AppContext); //nothing there
-  console.log("AppContext in Layout");
-  console.log(AppContext);
-  // const appContext = useContext(AppContext);
-  // const authed = appContext.isAuthenticated;
-  // console.log("appContext");
-  // console.log(appContext);
+  const { user, isAuthenticated, setUser } = useContext(AppContext);
   console.log("Layout isAuthenticated:");
   console.log(isAuthenticated);
+
+  console.log("Layout user:");
+  console.log(user);
+
+  const logout = async () => {
+    console.log("logout function called");
+    await signOut(auth);
+    setUser(false);
+  };
+
+  onAuthStateChanged(auth, (currentUser) => {
+    console.log("something changed in Auth State");
+    setUser(currentUser);
+  });
 
   return (
     <div>
@@ -52,7 +66,7 @@ const Layout = (props) => {
           </NavItem>
           <NavItem className="ml-auto">
             {user ? (
-              <h5>{user.username}</h5>
+              <h5>{user.email}</h5>
             ) : (
               <Link href="/register">
                 <a className="nav-link"> Sign up</a>

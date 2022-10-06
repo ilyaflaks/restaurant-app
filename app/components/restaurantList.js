@@ -56,7 +56,12 @@ function RestaurantList(props) {
   const { cart } = useContext(AppContext);
   const [state, setState] = useState(cart);
   const [showDishes, setShowDishes] = useState(false);
-  const { addItem } = useContext(AppContext);
+  const { addItem, isAuthenticated, user } = useContext(AppContext);
+
+  console.log("IN REST LIST, isAuthenticated:");
+  console.log(isAuthenticated);
+  console.log("IN REST LIST, user:");
+  console.log(user);
 
   useEffect(() => {
     setShowDishes(true);
@@ -97,16 +102,8 @@ function RestaurantList(props) {
       let selectedRes = data.restaurants.filter(
         (rest) => rest.id === restaurantID
       );
-      console.log("selectedRes");
-      console.log(selectedRes);
-
       let restName = selectedRes[0].name;
-      console.log("restName");
-      console.log(restName);
       let dishArray = selectedRes[0].dishes;
-
-      console.log("dishArray");
-      console.log(dishArray);
       const mapThroughDishes = dishArray.map((dish) => (
         <Col xs="6" sm="4" style={{ padding: 0 }} key={dish.id}>
           <Card style={{ margin: "0 10px" }}>
@@ -146,10 +143,6 @@ function RestaurantList(props) {
     }
   }
 
-  // const renderDishes = (restaurantID) => {
-  //   return <Dishes restId={restaurantID}> </Dishes>;
-  // };
-
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
       <Col xs="6" sm="4" key={res.id}>
@@ -167,11 +160,16 @@ function RestaurantList(props) {
             <Button
               color="info"
               onClick={() => {
-                //    setShowDishes(false);
-                setRestaurantID(res.id);
+                if (user) {
+                  setRestaurantID(res.id);
+                } else {
+                  alert(
+                    "Please log in to see the menu and add items to your cart"
+                  );
+                }
               }}
             >
-              Explore
+              See the Menu
             </Button>
           </div>
         </Card>
@@ -181,7 +179,7 @@ function RestaurantList(props) {
     return (
       <Container>
         <Row xs="3">{restList}</Row>
-        <DishesList />
+        {user && <DishesList />}
         {/* <Row xs="3">{renderDishes(restaurantID)}</Row> */}
         {/* <Fetchdish id={restaurantID} /> */}
       </Container>

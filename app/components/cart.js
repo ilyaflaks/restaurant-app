@@ -7,7 +7,7 @@ import Link from "next/link";
 // the alternative is using useContext as below
 function Cart() {
   let isAuthenticated = true;
-  let { cart, addItem, removeItem } = useContext(AppContext);
+  let { cart, addItem, removeItem, user } = useContext(AppContext);
   //const [cartA, setCartA] = useState({cart})
   //cart = value.cart;
   //console.log('props:'+ JSON.stringify(value));
@@ -92,35 +92,41 @@ function Cart() {
   // return statement of the Cart function (component)
   return (
     <div>
-      <h1> Cart</h1>
-      <Card style={{ padding: "10px 5px" }} className="cart">
-        <CardTitle style={{ margin: 10 }}>Your Order:</CardTitle>
-        <hr />
-        <CardBody style={{ padding: 10 }}>
-          <div style={{ marginBottom: 6 }}>
-            <small>Items:</small>
-          </div>
-          <div>{renderItems()}</div>
-          <div>{checkoutItems()}</div>
+      {user ? (
+        <div>
+          <h1> Cart</h1>
+          <Card style={{ padding: "10px 5px" }} className="cart">
+            <CardTitle style={{ margin: 10 }}>Your Order:</CardTitle>
+            <hr />
+            <CardBody style={{ padding: 10 }}>
+              <div style={{ marginBottom: 6 }}>
+                <small>Items:</small>
+              </div>
+              <div>{renderItems()}</div>
+              <div>{checkoutItems()}</div>
 
-          {console.log(`Router Path: ${router.asPath}`)}
-        </CardBody>
-      </Card>
-      <style jsx>{`
-        #item-price {
-          font-size: 1.3em;
-          color: rgba(97, 97, 97, 1);
-        }
-        #item-quantity {
-          font-size: 0.95em;
-          padding-bottom: 4px;
-          color: rgba(158, 158, 158, 1);
-        }
-        #item-name {
-          font-size: 1.3em;
-          color: rgba(97, 97, 97, 1);
-        }
-      `}</style>
+              {console.log(`Router Path: ${router.asPath}`)}
+            </CardBody>
+          </Card>
+          <style jsx>{`
+            #item-price {
+              font-size: 1.3em;
+              color: rgba(97, 97, 97, 1);
+            }
+            #item-quantity {
+              font-size: 0.95em;
+              padding-bottom: 4px;
+              color: rgba(158, 158, 158, 1);
+            }
+            #item-name {
+              font-size: 1.3em;
+              color: rgba(97, 97, 97, 1);
+            }
+          `}</style>
+        </div>
+      ) : (
+        <h4 style={{ marginLeft: "50px" }}>Please log in or create account</h4>
+      )}
     </div>
   );
 }

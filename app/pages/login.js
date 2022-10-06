@@ -12,7 +12,7 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { login } from "../components/auth";
+//import { login } from "../components/auth";
 import AppContext from "../components/context";
 import {
   signInWithEmailAndPassword,
@@ -42,12 +42,7 @@ function Login(props) {
   const { user, setUser, isAuthenticated } = appContext;
 
   onAuthStateChanged(auth, (currentUser) => {
-    console.log("currentUser:");
-    console.log(currentUser);
     console.log("something changed in Auth State");
-    // appContext.isAuthenticated = true;
-    // appContext.user = true;
-    //    appContext.currentUser = currentUser;
     setUser(currentUser);
   });
 
@@ -72,7 +67,6 @@ function Login(props) {
   };
 
   const logout = async () => {
-    console.log("logout function called");
     await signOut(auth);
     setShowForm(true);
   };
