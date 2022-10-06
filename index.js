@@ -90,7 +90,8 @@ app.get("/rest", function (req, res) {
 });
 
 app.get("/", (req, res) => {
-  res.send("My app");
+  //res.send("My app");
+  res.sendFile(__dirname, ""
 });
 
 app.post("/payment", cors(), async (req, res) => {
