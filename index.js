@@ -36,7 +36,7 @@ const typeDefs = gql`
     name: String
     price: Int
     description: String
-    id: Int
+    id: ID
   }
 
   type Restaurant {
