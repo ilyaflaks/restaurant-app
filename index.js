@@ -89,11 +89,6 @@ app.get("/rest", function (req, res) {
   res.json({ data: "api working" });
 });
 
-app.get("/", (req, res) => {
-  //res.send("My app");
-  res.sendFile(__dirname, ""
-});
-
 app.post("/payment", cors(), async (req, res) => {
   console.log("/payment accessed");
   let { amount, id } = req.body;
@@ -117,6 +112,11 @@ app.post("/payment", cors(), async (req, res) => {
       success: false,
     });
   }
+});
+
+app.get("*", (req, res) => {
+  // res.send("My app");
+  res.sendFile(__dirname, "./client/server/pages/index.html");
 });
 
 app.listen(PORT, function () {
