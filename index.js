@@ -117,7 +117,7 @@ app.post("/payment", cors(), async (req, res) => {
 app.get("*", (req, res) => {
   console.log("---------------------");
   // res.send("My app");
-  res.sendFile(__dirname, "./client/.next/server/pages/index.html");
+  res.sendFile(__dirname, ".next", "server", " pages", index.html);
 });
 
 app.listen(PORT, function () {
