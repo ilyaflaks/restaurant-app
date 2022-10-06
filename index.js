@@ -8,6 +8,7 @@ const { Dishes } = require("./models");
 const { Testcollections } = require("./models");
 //const { ApolloServer, gql } = require("apollo-server");
 const { ApolloServer, gql } = require("apollo-server-express");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const http = require("http");
 
 const cors = require("cors");
@@ -58,14 +59,16 @@ const resolvers = {
     restaurants: async () => {
       const response = await Restaurants.find({}).exec();
       console.log("response: " + response);
-      return response.map((item) => {
-        return {
-          id: item._id,
-          name: item.Name,
-          description: item.Description,
-          dishes: item.dishes,
-        };
-      });
+
+      return response;
+      // return response.map((item) => {
+      //   return {
+      //     id: item._id,
+      //     name: item.dame,
+      //     description: item.description,
+      //     dishes: item.dishes,
+      //   };
+      // });
     },
   },
 };
@@ -91,12 +94,13 @@ app.get("/", (req, res) => {
 });
 
 app.post("/payment", cors(), async (req, res) => {
+  console.log("/payment accessed");
   let { amount, id } = req.body;
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
       currency: "USD",
-      description: "Spatula company",
+      description: "Restaurant App",
       payment_method: id,
       confirm: true,
     });
