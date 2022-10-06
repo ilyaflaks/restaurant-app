@@ -10,9 +10,36 @@ function MyApp(props) {
   const [state, setState] = useState({ cart: cart });
   const { Component, pageProps } = props;
 
+  console.log("AppContext:");
+
+  console.log(AppContext);
+  const appContext = useContext(AppContext);
+  console.log("appContext");
+  console.log(appContext);
+  console.log("_app appContext.isAuthenticated");
+  console.log(appContext.isAuthenticated);
+  const authed = appContext.isAuthenticated;
+
+  console.log("authed");
+  console.log(authed);
+
+  console.log("_app appContext.user");
+  console.log(appContext.user);
+
+  console.log("_app appContext.currentUser");
+  console.log(appContext.currentUser);
+
   ////Not called anywhere yet
-  setUser = (user) => {
-    setState({ user });
+  setUser = (currentUser, isAuthenticated) => {
+    //    setState({ user });
+    console.log("setUser in app called");
+    console.log("currentUser (we are in setUser in app btw): ");
+    console.log(currentUser);
+    if (currentUser) {
+      isAuthenticated = true;
+    }
+    console.log("isAuthenticated (we are in setUser in app btw): ");
+    console.log(isAuthenticated);
   };
 
   ////empty function exported from context. Defined here
@@ -129,8 +156,8 @@ function MyApp(props) {
         addItem: addItem,
         removeItem: removeItem,
         isAuthenticated: false,
-        user: null,
-        setUser: () => {},
+        user: false,
+        setUser: setUser,
       }}
     >
       <Head>

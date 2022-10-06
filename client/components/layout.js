@@ -8,7 +8,16 @@ import AppContext from "./context";
 
 const Layout = (props) => {
   const title = "Your Fav Rest App";
-  const { user } = useContext(AppContext); //nothing there
+  const { user, isAuthenticated } = useContext(AppContext); //nothing there
+  console.log("AppContext in Layout");
+  console.log(AppContext);
+  // const appContext = useContext(AppContext);
+  // const authed = appContext.isAuthenticated;
+  // console.log("appContext");
+  // console.log(appContext);
+  console.log("Layout isAuthenticated:");
+  console.log(isAuthenticated);
+
   return (
     <div>
       <Head>

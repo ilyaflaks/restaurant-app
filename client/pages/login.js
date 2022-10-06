@@ -14,6 +14,12 @@ import {
 } from "reactstrap";
 import { login } from "../components/auth";
 import AppContext from "../components/context";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import { auth } from "../components/firebase-config";
 
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
@@ -21,16 +27,61 @@ function Login(props) {
   const [error, setError] = useState(false);
   const router = useRouter();
   const appContext = useContext(AppContext);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [success, setSuccess] = useState("false");
+  const [showForm, setShowForm] = useState(true);
 
-  useEffect(() => {
-    if (appContext.isAuthenticated) {
-      router.push("/"); // redirect if you're already logged in
+  // useEffect(() => {
+  //   if (appContext.isAuthenticated) {
+  //     router.push("/"); // redirect if you're already logged in
+  //   }
+  // }, []);
+
+  const { user, setUser, isAuthenticated } = appContext;
+  // console.log("user from appContext in login:");
+  // console.log(user);
+  // console.log("setUser from appContext in login:");
+  // console.log(setUser);
+  // console.log("isAuthenticated from appContext in login:");
+  // console.log(isAuthenticated);
+
+  onAuthStateChanged(auth, (currentUser) => {
+    console.log("currentUser:");
+    console.log(currentUser);
+    console.log("something changed in Auth State");
+    // appContext.isAuthenticated = true;
+    // appContext.user = true;
+    //    appContext.currentUser = currentUser;
+    setUser(currentUser);
+  });
+
+  const authenticate = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log("inside try block, things are good");
+
+      console.log(user);
+      setErrorMsg("");
+      setShowForm(false);
+    } catch (error) {
+      console.log("inside catch block, things are bad");
+
+      console.log(error.message);
+      setErrorMsg(error.message);
     }
-  }, []);
+  };
 
-  function onChange(event) {
-    updateData({ ...data, [event.target.name]: event.target.value });
-  }
+  const logout = async () => {
+    console.log("logout function called");
+    await signOut(auth);
+    setShowForm(true);
+  };
 
   return (
     <Container>
@@ -38,7 +89,7 @@ function Login(props) {
         <Col sm="12" md={{ size: 5, offset: 3 }}>
           <div className="paper">
             <div className="header">
-              <img src="http://localhost:1337/uploads/5a60a9d26a764e7cba1099d8b157b5e9.png" />
+              <h2 style={{ paddingTop: 30, paddingLeft: 30 }}>Log In</h2>
             </div>
             <section className="wrapper">
               {Object.entries(error).length !== 0 &&
@@ -55,60 +106,82 @@ function Login(props) {
                     </div>
                   );
                 })}
-              <Form>
-                <fieldset disabled={loading}>
-                  <FormGroup>
-                    <Label>Email:</Label>
-                    <Input
-                      onChange={(event) => onChange(event)}
-                      name="identifier"
-                      style={{ height: 50, fontSize: "1.2em" }}
-                    />
-                  </FormGroup>
-                  <FormGroup style={{ marginBottom: 30 }}>
-                    <Label>Password:</Label>
-                    <Input
-                      onChange={(event) => onChange(event)}
-                      type="password"
-                      name="password"
-                      style={{ height: 50, fontSize: "1.2em" }}
-                    />
-                  </FormGroup>
+              {showForm ? (
+                <Form>
+                  <fieldset disabled={loading}>
+                    <FormGroup>
+                      <Label>Email:</Label>
+                      <Input
+                        // onChange={(event) => onChange(event)}
+                        onChange={(event) => {
+                          setLoginEmail(event.target.value);
+                        }}
+                        name="identifier"
+                        style={{ height: 50, fontSize: "1.2em" }}
+                      />
+                    </FormGroup>
+                    <FormGroup style={{ marginBottom: 30 }}>
+                      <Label>Password:</Label>
+                      <Input
+                        // onChange={(event) => onChange(event)}
+                        onChange={(event) => {
+                          setLoginPassword(event.target.value);
+                        }}
+                        type="password"
+                        name="password"
+                        style={{ height: 50, fontSize: "1.2em" }}
+                      />
+                    </FormGroup>
 
-                  <FormGroup>
-                    <span>
+                    <FormGroup>
+                      {/* <span>
                       <a href="">
                         <small>Forgot Password?</small>
                       </a>
-                    </span>
-                    <Button
-                      style={{ float: "right", width: 120 }}
-                      color="primary"
-                      onClick={() => {
-                        setLoading(true);
-                        login(data.identifier, data.password)
-                          .then((res) => {
-                            setLoading(false);
-                            console.log("In login Button. res.data.user: ");
-                            console.log(res.data.user);
-                            // set authed User in global context to update header/app state
-                            appContext.setUser(res.data.user);
-                          })
-                          .catch((error) => {
-                            console.log(
-                              "login fun catch block, something is wrong: "
-                            );
-                            console.log(error);
-                            //setError(error.response.data);
-                            setLoading(false);
-                          });
-                      }}
-                    >
-                      {loading ? "Loading... " : "Submit"}
-                    </Button>
-                  </FormGroup>
-                </fieldset>
-              </Form>
+                    </span> */}
+                      <Button
+                        style={{ float: "right", width: 120 }}
+                        color="primary"
+                        onClick={authenticate}
+                        // onClick={() => {
+                        //   setLoading(true);
+                        //   login(data.identifier, data.password)
+                        //     .then((res) => {
+                        //       setLoading(false);
+                        //       console.log("In login Button. res.data.user: ");
+                        //       console.log(res.data.user);
+                        //       // set authed User in global context to update header/app state
+                        //       appContext.setUser(res.data.user);
+                        //     })
+                        //     .catch((error) => {
+                        //       console.log(
+                        //         "login fun catch block, something is wrong: "
+                        //       );
+                        //       console.log(error);
+                        //       //setError(error.response.data);
+                        //       setLoading(false);
+                        //     });
+                        // }}
+                      >
+                        {loading ? "Loading... " : "Submit"}
+                      </Button>
+                    </FormGroup>
+                  </fieldset>
+                </Form>
+              ) : (
+                <div>
+                  <h4>Thank you for logging in! </h4>
+                  <h5>You are now signed in as {loginEmail}</h5>
+                  <Button
+                    // style={{ float: "right", width: 120 }}
+                    color="primary"
+                    onClick={logout}
+                  >
+                    Log Out
+                  </Button>
+                </div>
+              )}
+              {errorMsg && <h4>{errorMsg}</h4>}
             </section>
           </div>
         </Col>
