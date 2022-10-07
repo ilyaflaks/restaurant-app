@@ -105,7 +105,7 @@ const SearchMenu = ({
                     // color="info"
                     outline
                     color="primary"
-                    onClick={() => addItem(dish)}
+                    onClick={() => addItem(result)}
                   >
                     + Add To Cart
                   </Button>
@@ -267,6 +267,7 @@ function RestaurantList(props) {
             setShowAllDishes={setShowAllDishes}
             restaurantID={restaurantID}
             data={data}
+            addItem={addItem}
           />
           {showSearchResults && <h5>RESULTZ</h5>}
           <br />
