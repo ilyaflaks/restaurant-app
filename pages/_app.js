@@ -13,64 +13,24 @@ function MyApp(props) {
   const [authed, setAuthed] = useState(false);
   const { Component, pageProps } = props;
 
-  console.log("AppContext:");
-
-  console.log(AppContext);
   const appContext = useContext(AppContext);
-  console.log("appContext");
-  console.log(appContext);
-  console.log("_app appContext.isAuthenticated");
-  // console.log(appContext.isAuthenticated);
-  // const authed = appContext.isAuthenticated;
-
-  // console.log("authed");
-  // console.log(authed);
-
-  console.log("_app appContext.user");
-  console.log(appContext.user);
-
-  console.log("_app appContext.currentUser");
-  console.log(appContext.currentUser);
-
-  ////Not called anywhere yet
+  // console.log("cookie:");
+  // console.log(Cookie);
   setUser = (currentUser) => {
-    //    setState({ user });
-    console.log("setUser in app called");
-    console.log("currentUser (we are in setUser in app btw): ");
-    console.log(currentUser);
     setUserSignedIn(currentUser);
     if (currentUser) {
       setAuthed(true);
     }
-    console.log("isAuthenticated (we are in setUser in app btw): ");
-    console.log(isAuthenticated);
   };
 
-  console.log("_app under setUser. userSignedin:");
-  console.log(userSignedin);
-
-  console.log("_app under setUser. authed:");
-  console.log(authed);
-
-  ////empty function exported from context. Defined here
   addItem = (item) => {
-    console.log("in AddItem in _app");
     let { items } = state.cart;
-    console.log("items: ");
-    console.log(items);
-    console.log("items length: " + items.length);
-
     //state stores the items and the qty locally in state.cart = items
     //check for item already in cart
     //if not in cart, add item if item is found increase quanity ++
     let foundItem = true;
     if (items.length > 0) {
-      console.log("inside the if block");
-
       foundItem = items.find((i) => i.id === item.id);
-      console.log("foundItem: " + foundItem);
-      //console.log("i.id: " + i.id);
-      console.log("item.id: " + item.id);
 
       //if cart is not empty, search for item matching the id of the item that called addItem
       //assign it to foundItem. If none found foundItem becomes false

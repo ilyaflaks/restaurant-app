@@ -12,20 +12,13 @@ import RestaurantList from "../components/restaurantList";
 import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 function Home() {
-  // const API_URL =
-  //   "https://ilya-server-restaurant.herokuapp.com/graphql";
+  const API_URL = "https://ilya-server-restaurant.herokuapp.com/graphql";
   //THIS WORKS^^^
-  const API_URL = "http://localhost:4000/graphql";
+  //const API_URL = "http://localhost:4000/graphql";
 
-  //    "http://localhost:4000/graphql";
-  //|| //heroku.com/Ilya.../graphql
-  //https://ilya-restaurant-app.herokuapp.com/graphql
-  // "http://localhost:4000/graphql";
   console.log(`API_URL: ${API_URL}`);
   const [query, setQuery] = useState("");
-  //fetch("/api/buldlog").then();
 
-  // console.log("process.env.NEXT_PUBLIC_API_URL:");
   // console.log(process.env.NEXT_PUBLIC_API_URL);
 
   // console.log("API_URL: ");
@@ -38,20 +31,20 @@ function Home() {
   });
 
   // client
-  //   .query({
-  //     query: gql`
-  //       query Restaurants {
-  //         restaurants {
-  //           id
+  // .query({
+  //   query: gql`
+  //     query Restaurants {
+  //       restaurants {
+  //         id
+  //         name
+  //         description
+  //         dishes {
   //           name
-  //           description
-  //           dishes {
-  //             name
-  //           }
   //         }
   //       }
-  //     `,
-  //   })
+  //     }
+  //   `,
+  // })
   //   .then((result) => console.log(result));
 
   return (
