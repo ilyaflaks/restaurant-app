@@ -54,6 +54,7 @@ const SearchMenu = ({
   setShowAllDishes,
   restaurantID,
   data,
+  addItem,
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const [searchDish, setSearchDish] = useState("");
