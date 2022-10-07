@@ -1,5 +1,3 @@
-/* /pages/login.js */
-
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import {
@@ -18,8 +16,19 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAuth,
+  signInWithRedirect,
+  getRedirectResult,
+  FacebookAuthProvider,
 } from "firebase/auth";
+//import firebase from "firebase/app";
+
+////this works for log in with email and pw.Commented out for now
 import { auth } from "../components/firebase-config";
+
+//const auth = getAuth();
 
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
@@ -40,7 +49,7 @@ function Login(props) {
   // }, []);
 
   const { user, setUser, isAuthenticated } = appContext;
-
+  const auth = getAuth();
   onAuthStateChanged(auth, (currentUser) => {
     console.log("something changed in Auth State");
     setUser(currentUser);
@@ -64,6 +73,105 @@ function Login(props) {
       console.log(error.message);
       setErrorMsg(error.message);
     }
+  };
+
+  const providerBook = new FacebookAuthProvider();
+
+  const logInWithFacebook = () => {
+    signInWithPopup(auth, providerBook)
+      .then((result) => {
+        console.log("Inside then block");
+        // The signed-in user info.
+        const user = result.user;
+        console.log("user");
+        console.log(user);
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        console.log("Icredential");
+        console.log(credential);
+        const accessToken = credential.accessToken;
+        console.log("accessToken");
+        console.log(accessToken);
+
+        // ...
+      })
+      .catch((error) => {
+        console.log("Inside catch block");
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
+  };
+
+  const provider = new GoogleAuthProvider();
+
+  const loginWithGoogle = () => {
+    //version 3, my fav
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // response.cookie("cookie2", "value2", {
+        //   sameSite: "none",
+        //   secure: true,
+        // });
+        console.log("Inside then block");
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log("Icredential");
+        console.log(credential);
+        const token = credential.accessToken;
+        console.log("token");
+        console.log(token);
+        // The signed-in user info.
+        const user = result.user;
+        console.log("user");
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        console.log("Inside the catch block");
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+    /////
+    ////version 1 from you toob
+    // firebase
+    //   .auth()
+    //   .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    //   .then((userCred) => {
+    //     if (userCred) {
+    //       setAuth(true);
+    //       window.localStorage.setItem("auth", "true");
+    //     }
+    //   });
+    ////Version 2
+    // signInWithPopup(auth, provider)
+    //   .then((result) => {
+    //     console.error("In then block of google auth");
+    //     // This gives you a Google Access Token. You can use it to access the Google API.
+    //     const credential = GoogleAuthProvider.credentialFromResult(result);
+    //     const token = credential.accessToken;
+    //     // The signed-in user info.
+    //     const user = result.user;
+    //     console.log("google user: ", user);
+    //   })
+    //   .catch((error) => {
+    //     // Handle Errors here.
+    //     console.error("In catch block of google auth");
+    //     console.error(error);
+    //   });
   };
 
   const logout = async () => {
@@ -111,7 +219,6 @@ function Login(props) {
                     <FormGroup style={{ marginBottom: 30 }}>
                       <Label>Password:</Label>
                       <Input
-                        // onChange={(event) => onChange(event)}
                         onChange={(event) => {
                           setLoginPassword(event.target.value);
                         }}
@@ -131,28 +238,15 @@ function Login(props) {
                         style={{ float: "right", width: 120 }}
                         color="primary"
                         onClick={authenticate}
-                        // onClick={() => {
-                        //   setLoading(true);
-                        //   login(data.identifier, data.password)
-                        //     .then((res) => {
-                        //       setLoading(false);
-                        //       console.log("In login Button. res.data.user: ");
-                        //       console.log(res.data.user);
-                        //       // set authed User in global context to update header/app state
-                        //       appContext.setUser(res.data.user);
-                        //     })
-                        //     .catch((error) => {
-                        //       console.log(
-                        //         "login fun catch block, something is wrong: "
-                        //       );
-                        //       console.log(error);
-                        //       //setError(error.response.data);
-                        //       setLoading(false);
-                        //     });
-                        // }}
                       >
-                        {loading ? "Loading... " : "Submit"}
+                        Submit
                       </Button>
+                      <button onClick={loginWithGoogle}>
+                        Login with Google
+                      </button>{" "}
+                      <button onClick={logInWithFacebook}>
+                        Login with Facebook
+                      </button>
                     </FormGroup>
                   </fieldset>
                 </Form>
