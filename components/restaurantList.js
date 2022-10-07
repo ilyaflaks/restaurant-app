@@ -73,11 +73,13 @@ function RestaurantList(props) {
         id
         name
         description
+        img
         dishes {
           name
           price
           description
           id
+          img
         }
       }
     }
@@ -104,14 +106,25 @@ function RestaurantList(props) {
       );
       let restName = selectedRes[0].name;
       let dishArray = selectedRes[0].dishes;
+      console.log("-------dishArray:");
+      console.log(dishArray);
       const mapThroughDishes = dishArray.map((dish) => (
-        <Col xs="6" sm="4" style={{ padding: 0 }} key={dish.id}>
+        <Col
+          xs="6"
+          sm="4"
+          style={{
+            padding: 0,
+            display: "inline-block",
+            marginTop: "5px",
+          }}
+          key={dish.id}
+        >
           <Card style={{ margin: "0 10px" }}>
-            {/* <CardImg
+            <CardImg
               top={true}
-              style={{ height: 150, width: 150 }}
-              src={`http://localhost:1337${res.image.url}`}
-            /> */}
+              style={{ height: 150, width: 180, margin: "auto" }}
+              src={dish.img}
+            />
             <CardBody>
               <CardTitle>{dish.name}</CardTitle>
               <CardText>${dish.price}</CardText>
@@ -147,12 +160,10 @@ function RestaurantList(props) {
     const restList = searchQuery.map((res) => (
       <Col xs="6" sm="4" key={res.id}>
         <Card style={{ margin: "0 0.5rem 20px 0.5rem" }}>
-          {/* <CardImg
-            top={true}
-            style={{ height: 200 }}
-            src={`http://localhost:1337` + res.image.url}
-          /> */}
+          <CardImg top={true} style={{ height: 200 }} src={res.img} />
           <CardBody>
+            {/* <CardText>{res.img}</CardText> */}
+
             <CardTitle tag="h5">{res.name}</CardTitle>
             <CardText>{res.description}</CardText>
           </CardBody>
@@ -180,8 +191,6 @@ function RestaurantList(props) {
       <Container>
         <Row xs="3">{restList}</Row>
         {user && <DishesList />}
-        {/* <Row xs="3">{renderDishes(restaurantID)}</Row> */}
-        {/* <Fetchdish id={restaurantID} /> */}
       </Container>
     );
   } else {

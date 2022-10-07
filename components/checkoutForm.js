@@ -32,6 +32,28 @@ function CheckoutForm() {
 
   async function submitOrder(event) {
     event.preventDefault();
+    console.log("data inside submitOrder");
+    console.log(data.address);
+    console.log(data.city);
+    console.log(data.state);
+
+    const regex1 = /[a-zA-Z]/;
+    console.log("regex1.test(data.address");
+    console.log(regex1.test(data.address));
+    console.log("regex1.test(data.city)");
+    console.log(regex1.test(data.city));
+    console.log("regex1.test(data.state)");
+    console.log(regex1.test(data.state));
+
+    if (
+      data.address.length === 0 ||
+      data.city.length === 0 ||
+      data.state.length === 0 ||
+      regex1.test(data.city) === false ||
+      regex1.test(data.state) === false
+    ) {
+      alert("invalid address, please try again");
+    }
 
     const paymentAmnt =
       Number(Math.round(appContext.cart.total + "e2") + "e-2") * 100;

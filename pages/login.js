@@ -28,8 +28,6 @@ import {
 ////this works for log in with email and pw.Commented out for now
 import { auth } from "../components/firebase-config";
 
-//const auth = getAuth();
-
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -179,6 +177,10 @@ function Login(props) {
     setShowForm(true);
   };
 
+  const goHome = () => {
+    router.push("/");
+  };
+
   return (
     <Container>
       <Row>
@@ -261,6 +263,7 @@ function Login(props) {
                   >
                     Log Out
                   </Button>
+                  <Button onClick={goHome}>Home</Button>
                 </div>
               )}
               {errorMsg && <h4>{errorMsg}</h4>}
