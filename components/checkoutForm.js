@@ -30,20 +30,30 @@ function CheckoutForm() {
     setData({ ...data, updateItem });
   }
 
+  console.log("appContext in Checkout form:");
+  console.log(appContext);
+  const { user, cart } = appContext;
+  console.log("user");
+  console.log(user);
+  console.log("cart");
+  console.log(cart);
+  console.log("cart total");
+  console.log(cart.total);
+
   async function submitOrder(event) {
     event.preventDefault();
-    console.log("data inside submitOrder");
-    console.log(data.address);
-    console.log(data.city);
-    console.log(data.state);
+    // console.log("data inside submitOrder");
+    // console.log(data.address);
+    // console.log(data.city);
+    // console.log(data.state);
 
     const regex1 = /[a-zA-Z]/;
-    console.log("regex1.test(data.address");
-    console.log(regex1.test(data.address));
-    console.log("regex1.test(data.city)");
-    console.log(regex1.test(data.city));
-    console.log("regex1.test(data.state)");
-    console.log(regex1.test(data.state));
+    // console.log("regex1.test(data.address");
+    // console.log(regex1.test(data.address));
+    // console.log("regex1.test(data.city)");
+    // console.log(regex1.test(data.city));
+    // console.log("regex1.test(data.state)");
+    // console.log(regex1.test(data.state));
 
     if (
       data.address.length === 0 ||
@@ -52,7 +62,9 @@ function CheckoutForm() {
       regex1.test(data.city) === false ||
       regex1.test(data.state) === false
     ) {
-      alert("invalid address, please try again");
+      alert("Invalid address, please try again");
+    } else if (cart.total === 0) {
+      alert("You must add items to the cart first");
     }
 
     const paymentAmnt =

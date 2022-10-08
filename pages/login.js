@@ -263,7 +263,9 @@ function Login(props) {
                   >
                     Log Out
                   </Button>
-                  <Button onClick={goHome}>Home</Button>
+                  <Button style={{ marginLeft: "10px" }} onClick={goHome}>
+                    Home
+                  </Button>
                 </div>
               )}
               {errorMsg && <h4>{errorMsg}</h4>}
