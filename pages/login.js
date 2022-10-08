@@ -88,9 +88,14 @@ function Login(props) {
       })
       .catch((error) => {
         console.log("Inside catch block");
+
         const errorCode = error.code;
+        console.log("errorCode");
+        console.log(errorCode);
         const errorMessage = error.message;
         // The email of the user's account used.
+        console.log("errorMessage");
+        console.log(errorMessage);
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = FacebookAuthProvider.credentialFromError(error);
@@ -128,7 +133,11 @@ function Login(props) {
         console.log("Inside the catch block");
         // Handle Errors here.
         const errorCode = error.code;
+        console.log("errorCode");
+        console.log(errorCode);
         const errorMessage = error.message;
+        console.log("errorMessage");
+        console.log(errorMessage);
         // The email of the user's account used.
         const email = error.customData.email;
         // The AuthCredential type that was used.
