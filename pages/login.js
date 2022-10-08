@@ -110,6 +110,7 @@ function Login(props) {
         const token = credential.accessToken;
         console.log("token");
         console.log(token);
+        // The signed-in user info.
         const user = result.user;
         console.log("user");
         console.log(user);
@@ -128,7 +129,9 @@ function Login(props) {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
       });
+    /////
   };
 
   const logout = async () => {
