@@ -13,7 +13,7 @@ import {
 import { auth } from "../components/firebase-config";
 
 const Layout = (props) => {
-  const title = "Your Fav Rest App";
+  const title = "Flaks Delivery";
   const { user, isAuthenticated, setUser } = useContext(AppContext);
   // console.log("Layout isAuthenticated:");
   // console.log(isAuthenticated);
