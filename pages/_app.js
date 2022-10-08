@@ -13,7 +13,7 @@ function MyApp(props) {
   const [authed, setAuthed] = useState(false);
   const { Component, pageProps } = props;
 
-  const appContext = useContext(AppContext);
+  //const appContext = useContext(AppContext);
   // console.log("cookie:");
   // console.log(Cookie);
   setUser = (currentUser) => {

@@ -24,7 +24,7 @@ const Layout = (props) => {
   const logout = async () => {
     //    console.log("logout function called");
     await signOut(auth);
-    setUser(false);
+    setUser({});
   };
 
   onAuthStateChanged(auth, (currentUser) => {

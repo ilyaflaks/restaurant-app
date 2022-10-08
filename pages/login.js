@@ -40,13 +40,18 @@ function Login(props) {
   const [success, setSuccess] = useState("false");
   const [showForm, setShowForm] = useState(true);
 
+  const { user, setUser, isAuthenticated } = appContext;
   // useEffect(() => {
-  //   if (appContext.isAuthenticated) {
+  //   if (user) {
+  //     console.log("user inside useEffect");
+  //     console.log(user);
+  //     console.log("isAuthenticated inside useEffect");
+  //     console.log(isAuthenticated);
+
   //     router.push("/"); // redirect if you're already logged in
   //   }
   // }, []);
 
-  const { user, setUser, isAuthenticated } = appContext;
   const auth = getAuth();
   onAuthStateChanged(auth, (currentUser) => {
     console.log("something changed in Auth State");
@@ -175,6 +180,9 @@ function Login(props) {
   const logout = async () => {
     await signOut(auth);
     setShowForm(true);
+    console.log("user in logout func in login.js");
+    console.log(user);
+    setUser({});
   };
 
   const goHome = () => {
