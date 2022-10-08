@@ -7,13 +7,16 @@ import { firebase } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDAz2pl8mBmPhWHbOwuuUuKQ37pvC1qmL0",
-  authDomain: "restaurant-auth-5a646.firebaseapp.com",
-  projectId: "restaurant-auth-5a646",
-  storageBucket: "restaurant-auth-5a646.appspot.com",
-  messagingSenderId: "17278684987",
-  appId: "1:17278684987:web:621f3fa24ca30c798db11e",
+  apiKey: process.env.NEXT_FIREBASE_APIKEY,
+  authDomain: process.env.NEXT_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.NEXT_FIREBASE_PROJECTID,
+  storageBucket: process.env.NEXT_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.NEXT_FIREBASE_MESSENGERSENDERID,
+  appId: process.env.NEXT_FIREBASE_APPID,
 };
+
+console.log("process.env.NEXT_FIREBASE_APIKEY");
+console.log(process.env.NEXT_FIREBASE_APIKEY);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

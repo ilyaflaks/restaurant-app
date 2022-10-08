@@ -28,7 +28,7 @@ const Layout = (props) => {
   };
 
   onAuthStateChanged(auth, (currentUser) => {
-    console.log("something changed in Auth State");
+    //    console.log("something changed in Auth State");
     setUser(currentUser);
   });
 

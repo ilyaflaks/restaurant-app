@@ -28,6 +28,10 @@ import {
 ////this works for log in with email and pw.Commented out for now
 import { auth } from "../components/firebase-config";
 
+// console.log(MONGO_URI);
+// console.log("process.env.NEXT_FIREBASE_APIKEY");
+// console.log(process.env.NEXT_FIREBASE_APIKEY);
+
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -41,20 +45,9 @@ function Login(props) {
   const [showForm, setShowForm] = useState(true);
 
   const { user, setUser, isAuthenticated } = appContext;
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log("user inside useEffect");
-  //     console.log(user);
-  //     console.log("isAuthenticated inside useEffect");
-  //     console.log(isAuthenticated);
-
-  //     router.push("/"); // redirect if you're already logged in
-  //   }
-  // }, []);
 
   const auth = getAuth();
   onAuthStateChanged(auth, (currentUser) => {
-    console.log("something changed in Auth State");
     setUser(currentUser);
   });
 
@@ -65,14 +58,9 @@ function Login(props) {
         loginEmail,
         loginPassword
       );
-      console.log("inside try block, things are good");
-
-      console.log(user);
       setErrorMsg("");
       setShowForm(false);
     } catch (error) {
-      console.log("inside catch block, things are bad");
-
       console.log(error.message);
       setErrorMsg(error.message);
     }
@@ -100,7 +88,6 @@ function Login(props) {
       })
       .catch((error) => {
         console.log("Inside catch block");
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
         // The email of the user's account used.
@@ -149,39 +136,11 @@ function Login(props) {
         // ...
       });
     /////
-    ////version 1 from you toob
-    // firebase
-    //   .auth()
-    //   .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    //   .then((userCred) => {
-    //     if (userCred) {
-    //       setAuth(true);
-    //       window.localStorage.setItem("auth", "true");
-    //     }
-    //   });
-    ////Version 2
-    // signInWithPopup(auth, provider)
-    //   .then((result) => {
-    //     console.error("In then block of google auth");
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     const credential = GoogleAuthProvider.credentialFromResult(result);
-    //     const token = credential.accessToken;
-    //     // The signed-in user info.
-    //     const user = result.user;
-    //     console.log("google user: ", user);
-    //   })
-    //   .catch((error) => {
-    //     // Handle Errors here.
-    //     console.error("In catch block of google auth");
-    //     console.error(error);
-    //   });
   };
 
   const logout = async () => {
     await signOut(auth);
     setShowForm(true);
-    console.log("user in logout func in login.js");
-    console.log(user);
     setUser({});
   };
 
@@ -213,53 +172,64 @@ function Login(props) {
                   );
                 })}
               {showForm ? (
-                <Form>
-                  <fieldset disabled={loading}>
-                    <FormGroup>
-                      <Label>Email:</Label>
-                      <Input
-                        // onChange={(event) => onChange(event)}
-                        onChange={(event) => {
-                          setLoginEmail(event.target.value);
-                        }}
-                        name="identifier"
-                        style={{ height: 50, fontSize: "1.2em" }}
-                      />
-                    </FormGroup>
-                    <FormGroup style={{ marginBottom: 30 }}>
-                      <Label>Password:</Label>
-                      <Input
-                        onChange={(event) => {
-                          setLoginPassword(event.target.value);
-                        }}
-                        type="password"
-                        name="password"
-                        style={{ height: 50, fontSize: "1.2em" }}
-                      />
-                    </FormGroup>
+                <div>
+                  <Form>
+                    <fieldset disabled={loading}>
+                      <FormGroup>
+                        <Label>Email:</Label>
+                        <Input
+                          // onChange={(event) => onChange(event)}
+                          onChange={(event) => {
+                            setLoginEmail(event.target.value);
+                          }}
+                          name="identifier"
+                          style={{ height: 50, fontSize: "1.2em" }}
+                        />
+                      </FormGroup>
+                      <FormGroup style={{ marginBottom: 30 }}>
+                        <Label>Password:</Label>
+                        <Input
+                          onChange={(event) => {
+                            setLoginPassword(event.target.value);
+                          }}
+                          type="password"
+                          name="password"
+                          style={{ height: 50, fontSize: "1.2em" }}
+                        />
+                      </FormGroup>
 
-                    <FormGroup>
-                      {/* <span>
+                      <FormGroup>
+                        {/* <span>
                       <a href="">
                         <small>Forgot Password?</small>
                       </a>
                     </span> */}
-                      <Button
-                        style={{ float: "right", width: 120 }}
-                        color="primary"
-                        onClick={authenticate}
-                      >
-                        Submit
-                      </Button>
-                      <button onClick={loginWithGoogle}>
-                        Login with Google
-                      </button>{" "}
-                      <button onClick={logInWithFacebook}>
-                        Login with Facebook
-                      </button>
-                    </FormGroup>
-                  </fieldset>
-                </Form>
+                        <Button
+                          style={{ float: "right", width: 120 }}
+                          color="success"
+                          onClick={authenticate}
+                        >
+                          Login
+                        </Button>
+                      </FormGroup>
+                    </fieldset>
+                  </Form>
+                  <Button
+                    color="info"
+                    //                    style={{ marginLeft: "5px" }}
+                    outline
+                    onClick={loginWithGoogle}
+                  >
+                    Login with Google
+                  </Button>
+                  <Button
+                    color="info"
+                    style={{ margin: "10px 18px" }}
+                    onClick={logInWithFacebook}
+                  >
+                    Login with Facebook
+                  </Button>
+                </div>
               ) : (
                 <div>
                   <h4>Thank you for logging in! </h4>

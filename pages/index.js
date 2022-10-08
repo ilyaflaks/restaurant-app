@@ -13,10 +13,8 @@ import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 function Home() {
   const API_URL = "https://ilya-server-restaurant.herokuapp.com/graphql";
-  //THIS WORKS^^^
   //const API_URL = "http://localhost:4000/graphql";
 
-  console.log(`API_URL: ${API_URL}`);
   const [query, setQuery] = useState("");
 
   // console.log(process.env.NEXT_PUBLIC_API_URL);

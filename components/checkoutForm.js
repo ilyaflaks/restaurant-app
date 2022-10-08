@@ -107,50 +107,6 @@ function CheckoutForm() {
     }
   }
 
-  // const response = await fetch(`${API_URL}/orders`, {
-  //     method: "POST",
-  //     headers: userToken && { Authorization: `Bearer ${userToken}` },
-  //     body: JSON.stringify({
-  //       amount: Number(Math.round(appContext.cart.total + "e2") + "e-2"),
-  //       dishes: appContext.cart.items,
-  //       address: data.address,
-  //       city: data.city,
-  //       state: data.state,
-  //       token: token.token.id,
-  //     }),
-  //   });
-
-  // // Use elements.getElement to get a reference to the mounted Element.
-  //const cardElement = elements.getElement();
-  //CardElement is imported from Stripe
-  //elements is the instance of the useElement Stripe hook
-
-  // // Pass the Element directly to other Stripe.js methods:
-  // // e.g. createToken - https://stripe.com/docs/js/tokens_sources/create_token?type=cardElement
-  // get token back from stripe to process credit card
-  // const API_URL =
-  //   process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/payment";
-
-  // const token = await stripe.createToken(cardElement);
-  // const userToken = Cookies.get("token");
-  // const response = await fetch(`${API_URL}/orders`, {
-  //   method: "POST",
-  //   headers: userToken && { Authorization: `Bearer ${userToken}` },
-  //   body: JSON.stringify({
-  //     amount: Number(Math.round(appContext.cart.total + "e2") + "e-2"),
-  //     dishes: appContext.cart.items,
-  //     address: data.address,
-  //     city: data.city,
-  //     state: data.state,
-  //     token: token.token.id,
-  //   }),
-  // });
-
-  // if (!response.ok) {
-  //   setError(response.statusText);
-  //   console.log("SUCCESS");
-  // }
-
   // OTHER stripe methods you can use depending on app
   // // or createPaymentMethod - https://stripe.com/docs/js/payment_intents/create_payment_method
   // stripe.createPaymentMethod({

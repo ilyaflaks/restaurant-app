@@ -13,15 +13,20 @@ function MyApp(props) {
   const [authed, setAuthed] = useState(false);
   const { Component, pageProps } = props;
 
-  //const appContext = useContext(AppContext);
-  // console.log("cookie:");
-  // console.log(Cookie);
   setUser = (currentUser) => {
     setUserSignedIn(currentUser);
     if (currentUser) {
       setAuthed(true);
     }
   };
+
+  //  console.log(process.env);
+  console.log("process.env.MONGO_URI");
+  console.log(process.env.MONGO_URI);
+  console.log("process.env.NEXT_FIREBASE_APIKEY");
+  console.log(process.env.NEXT_FIREBASE_APIKEY);
+
+  //console.log(process.env);
 
   addItem = (item) => {
     let { items } = state.cart;
@@ -81,7 +86,6 @@ function MyApp(props) {
       };
     }
     setState({ cart: newCart }); // problem is this is not updated yet
-    console.log(`state reset to cart:${JSON.stringify(state)}`);
   };
 
   ////removeItem is also in the context with no functionality
