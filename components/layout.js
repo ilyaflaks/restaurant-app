@@ -15,11 +15,6 @@ import { auth } from "../components/firebase-config";
 const Layout = (props) => {
   const title = "Flaks Delivery";
   const { user, isAuthenticated, setUser } = useContext(AppContext);
-  // console.log("Layout isAuthenticated:");
-  // console.log(isAuthenticated);
-
-  // console.log("Layout user:");
-  // console.log(user);
 
   const logout = async () => {
     //    console.log("logout function called");

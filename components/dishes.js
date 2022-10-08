@@ -16,8 +16,6 @@ function Dishes({ restaurantID }) {
   console.log("in Dishes component");
   console.log("restaurantID");
   console.log(restaurantID);
-
-  //const [restaurantID, setRestaurantID] = useState();
   const { addItem } = useContext(AppContext);
 
   const GET_RESTAURANT_DISHES = gql`
@@ -52,19 +50,11 @@ function Dishes({ restaurantID }) {
   console.log("restaurantID: " + restaurantID);
 
   if (restId > 0) {
-    console.log("inside the if block, restaurant matches the search query ");
-    //if a restaurant matches the search query the id should be 1, 2, 3 or 4, etc
-    //map through the dishes of this restaurant and return cards with image, name, descripton, price
     return (
       <>
         {restaurant.dishes.map((res) => (
           <Col xs="6" sm="4" style={{ padding: 0 }} key={res.id}>
             <Card style={{ margin: "0 10px" }}>
-              {/* <CardImg
-                top={true}
-                style={{ height: 150, width: 150 }}
-                src={`http://localhost:1337${res.image.url}`}
-              /> */}
               <CardBody>
                 <CardTitle>{res.name}</CardTitle>
                 <CardText>{res.description}</CardText>

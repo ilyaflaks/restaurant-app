@@ -26,12 +26,7 @@ import {
 } from "firebase/auth";
 //import firebase from "firebase/app";
 
-////this works for log in with email and pw.Commented out for now
 import { auth } from "../components/firebase-config";
-
-// console.log(MONGO_URI);
-// console.log("process.env.NEXT_FIREBASE_APIKEY");
-// console.log(process.env.NEXT_FIREBASE_APIKEY);
 
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
@@ -82,13 +77,11 @@ function Login(props) {
         console.log(user);
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
-        console.log("Icredential");
+        console.log("credential:");
         console.log(credential);
         const accessToken = credential.accessToken;
         console.log("accessToken");
         console.log(accessToken);
-
-        // ...
       })
       .catch((error) => {
         console.log("Inside catch block");
@@ -97,37 +90,26 @@ function Login(props) {
         console.log("errorCode");
         console.log(errorCode);
         const errorMessage = error.message;
-        // The email of the user's account used.
+
         console.log("errorMessage");
         console.log(errorMessage);
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = FacebookAuthProvider.credentialFromError(error);
-
-        // ...
       });
   };
 
   const provider = new GoogleAuthProvider();
 
   const loginWithGoogle = () => {
-    //version 3, my fav
-
     signInWithPopup(auth, provider)
       .then((result) => {
-        // response.cookie("cookie2", "value2", {
-        //   sameSite: "none",
-        //   secure: true,
-        // });
         console.log("Inside then block");
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         console.log("Icredential");
         console.log(credential);
         const token = credential.accessToken;
         console.log("token");
         console.log(token);
-        // The signed-in user info.
         const user = result.user;
         console.log("user");
         console.log(user);
@@ -146,9 +128,7 @@ function Login(props) {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
-    /////
   };
 
   const logout = async () => {
@@ -165,7 +145,6 @@ function Login(props) {
     if (loginEmail) {
       sendPasswordResetEmail(auth, loginEmail)
         .then(() => {
-          console.log("password reset email was sent");
           setErrorMsg("");
           setShowPwResetMessage(true);
           setPasswordResetMessage(
@@ -223,6 +202,7 @@ function Login(props) {
                           onChange={(event) => {
                             setLoginEmail(event.target.value);
                             setShowPwResetMessage(false);
+                            setErrorMsg("");
                           }}
                           name="identifier"
                           style={{ height: 50, fontSize: "1.2em" }}
@@ -234,6 +214,7 @@ function Login(props) {
                           onChange={(event) => {
                             setLoginPassword(event.target.value);
                             setShowPwResetMessage(false);
+                            setErrorMsg("");
                           }}
                           type="password"
                           name="password"
@@ -314,6 +295,10 @@ function Login(props) {
           }
           a {
             color: blue !important;
+            cursor: pointer;
+          }
+          a:hover {
+            text-decoration: underline;
           }
           img {
             margin: 15px 30px 10px 50px;

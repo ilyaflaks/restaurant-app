@@ -9,12 +9,7 @@ import AppContext from "../components/context";
 import Cart from "../components/cart";
 
 function Checkout() {
-  // get app context
   const { isAuthenticated, user } = useContext(AppContext);
-  // isAuthenticated is passed to the cart component to display order button
-  //const isAuthenticated  = true;
-
-  //My publishable key:
   const stripePromise = loadStripe(
     "pk_test_51LlFJoBbpWw7tohed82ElF5ORyyIWh9OaTucNLazgs6ANCbJH1wsUhU3eX3hGqkKckowFuMl8SQcjUW0oKFtEYga00q2lG1yQl"
   );

@@ -92,10 +92,12 @@ function CheckoutForm() {
         if (response.data.success) {
           console.log("Successful payment");
           setSuccess(true);
+          setError(false);
         } else {
           console.log(response);
           let newError = { message: response.data.message };
           setError(newError);
+          setSuccess(false);
         }
       } catch (error) {
         console.log("Error", error);

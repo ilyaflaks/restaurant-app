@@ -47,8 +47,6 @@ import {
 // }
 
 const SearchMenu = ({
-  // searchDish,
-  // setSearchDish,
   setShowSearchResults,
   selectedRestaurantDishes,
   setShowAllDishes,
@@ -126,14 +124,10 @@ const SearchMenu = ({
   };
 
   useEffect(() => {
-    console.log("searchValue in useEffect");
-    console.log(searchValue);
     let searchRes = allDishes.filter((dish) => {
       return dish.name.toLowerCase().includes(searchValue);
       //   return dish.name.toLowerCase() === searchValue;
     });
-    console.log("searchRes in useEffect:");
-    console.log(searchRes);
     setSearchResult(searchRes);
   }, [searchValue]);
 
@@ -145,16 +139,12 @@ const SearchMenu = ({
           key="searchDish"
           placeholder="Search Dishes"
           onChange={(e) => {
-            console.log("e.target.value:");
-            console.log(e.target.value.toLocaleLowerCase());
             setSearchDish(e.target.value.toLocaleLowerCase());
           }}
           value={searchDish}
         />
         <Button
           onClick={() => {
-            console.log("search query: " + searchDish);
-            //setShowSearchResults(true);
             setSearchValue(searchDish);
           }}
         >
@@ -203,8 +193,6 @@ function RestaurantList(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>ERROR</p>;
   if (!data) return <p>Not found</p>;
-  // console.log(`Query Data:`);
-  // console.log(data.restaurants);
 
   let searchQuery =
     data.restaurants.filter((res) => {
@@ -213,8 +201,6 @@ function RestaurantList(props) {
 
   function DishesList() {
     if (restaurantID) {
-      // console.log("data.restaurants:");
-      // console.log(data.restaurants);
       let selectedRes = data.restaurants.filter(
         (rest) => rest.id === restaurantID
       );

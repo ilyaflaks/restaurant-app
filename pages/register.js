@@ -25,8 +25,6 @@ import {
 import { auth } from "../components/firebase-config";
 
 const Register = () => {
-  // const [data, setData] = useState({ email: "", username: "", password: "" });
-
   const [registerUsername, setRegisterUsername] = useState("");
 
   const [registerEmail, setRegisterEmail] = useState("");
@@ -53,8 +51,6 @@ const Register = () => {
         registerEmail,
         registerPassword
       );
-      console.log("user who just registered: ");
-      console.log(user);
       setErrorMsg("");
       setShowForm(false);
       //     setSuccess(true);
