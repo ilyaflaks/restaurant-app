@@ -22,6 +22,7 @@ import {
   signInWithRedirect,
   getRedirectResult,
   FacebookAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 //import firebase from "firebase/app";
 
@@ -43,10 +44,13 @@ function Login(props) {
   const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState("false");
   const [showForm, setShowForm] = useState(true);
+  const [showPwResetMessage, setShowPwResetMessage] = useState(false);
+  const [passwordResetMessage, setPasswordResetMessage] = useState("");
 
   const { user, setUser, isAuthenticated } = appContext;
 
   const auth = getAuth();
+
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
@@ -157,6 +161,35 @@ function Login(props) {
     router.push("/");
   };
 
+  const sendPasswordReset = () => {
+    if (loginEmail) {
+      sendPasswordResetEmail(auth, loginEmail)
+        .then(() => {
+          console.log("password reset email was sent");
+          setErrorMsg("");
+          setShowPwResetMessage(true);
+          setPasswordResetMessage(
+            `An email with a reset link was sent to ${loginEmail}`
+          );
+        })
+        .catch((error) => {
+          console.log("catch block");
+
+          const errorCode = error.code;
+          console.log("errorCode");
+          console.log(errorCode);
+
+          const errorMessage = error.message;
+          console.log("errorMessage");
+          console.log(errorMessage);
+
+          // ..
+        });
+    } else {
+      alert('Please enter an email in the "Email" field');
+    }
+  };
+
   return (
     <Container>
       <Row>
@@ -187,9 +220,9 @@ function Login(props) {
                       <FormGroup>
                         <Label>Email:</Label>
                         <Input
-                          // onChange={(event) => onChange(event)}
                           onChange={(event) => {
                             setLoginEmail(event.target.value);
+                            setShowPwResetMessage(false);
                           }}
                           name="identifier"
                           style={{ height: 50, fontSize: "1.2em" }}
@@ -200,19 +233,19 @@ function Login(props) {
                         <Input
                           onChange={(event) => {
                             setLoginPassword(event.target.value);
+                            setShowPwResetMessage(false);
                           }}
                           type="password"
                           name="password"
                           style={{ height: 50, fontSize: "1.2em" }}
                         />
                       </FormGroup>
-
                       <FormGroup>
-                        {/* <span>
-                      <a href="">
-                        <small>Forgot Password?</small>
-                      </a>
-                    </span> */}
+                        <span>
+                          <a onClick={sendPasswordReset}>
+                            <small>Forgot Password?</small>
+                          </a>
+                        </span>
                         <Button
                           style={{ float: "right", width: 120 }}
                           color="success"
@@ -221,14 +254,10 @@ function Login(props) {
                           Login
                         </Button>
                       </FormGroup>
+                      {showPwResetMessage && <h5>{passwordResetMessage}</h5>}
                     </fieldset>
                   </Form>
-                  <Button
-                    color="info"
-                    //                    style={{ marginLeft: "5px" }}
-                    outline
-                    onClick={loginWithGoogle}
-                  >
+                  <Button color="info" outline onClick={loginWithGoogle}>
                     Login with Google
                   </Button>
                   <Button
