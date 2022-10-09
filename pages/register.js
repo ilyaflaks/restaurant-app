@@ -1,7 +1,7 @@
 /* /pages/register.js */
 
 import React, { useState, useContext, useEffect } from "react";
-
+import { useRouter } from "next/router";
 import {
   Container,
   Row,
@@ -15,7 +15,6 @@ import {
 import { registerUser } from "../components/auth";
 import AppContext from "../components/context";
 
-////MY FIREBASE CODDE
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -26,7 +25,7 @@ import { auth } from "../components/firebase-config";
 
 const Register = () => {
   const [registerUsername, setRegisterUsername] = useState("");
-
+  const router = useRouter();
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -58,6 +57,10 @@ const Register = () => {
       console.log(error.message);
       setErrorMsg(error.message);
     }
+  };
+
+  const goHome = () => {
+    router.push("/");
   };
 
   return (
@@ -159,6 +162,9 @@ const Register = () => {
                     <h4>Thank you for signing up! </h4>
                     <h5>An account has been created for {registerEmail}</h5>
                     <h5>You are now logged in</h5>
+                    <Button style={{ marginLeft: "10px" }} onClick={goHome}>
+                      Home
+                    </Button>
                   </div>
                 )}
               </Form>
