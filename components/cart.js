@@ -5,7 +5,7 @@ import AppContext from "./context";
 import Link from "next/link";
 function Cart() {
   let isAuthenticated = true;
-  let { cart, addItem, removeItem, user } = useContext(AppContext);
+  let { cart, addItem, removeItem, user, clearCart } = useContext(AppContext);
   const router = useRouter();
   console.log(`Router Path: ${JSON.stringify(router)}`);
   const renderItems = () => {
@@ -79,7 +79,6 @@ function Cart() {
     );
   };
 
-  // return statement of the Cart function (component)
   return (
     <div>
       {user ? (
@@ -94,8 +93,6 @@ function Cart() {
               </div>
               <div>{renderItems()}</div>
               <div>{checkoutItems()}</div>
-
-              {console.log(`Router Path: ${router.asPath}`)}
             </CardBody>
           </Card>
           <style jsx>{`

@@ -36,7 +36,7 @@ function CheckoutForm() {
 
   console.log("appContext in Checkout form:");
   console.log(appContext);
-  const { user, cart } = appContext;
+  const { user, cart, clearCart } = appContext;
   console.log("user");
   console.log(user);
   console.log("cart");
@@ -90,6 +90,7 @@ function CheckoutForm() {
           setSuccess(true);
           setError(false);
           setHideCardSection(true);
+          clearCart();
         } else {
           console.log(response);
           setLoadingStripe(false);

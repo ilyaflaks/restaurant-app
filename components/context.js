@@ -11,5 +11,6 @@ const AppContext = React.createContext({
   removeItem: () => {},
   user: false,
   setUser: () => {},
+  clearCart: () => {},
 });
 export default AppContext;

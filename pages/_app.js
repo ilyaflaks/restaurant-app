@@ -6,7 +6,7 @@ import Layout from "../components/layout";
 import Cookie from "js-cookie";
 
 function MyApp(props) {
-  var { cart, addItem, removeItem, user, setUser, isAuthenticated } =
+  var { cart, addItem, removeItem, user, setUser, isAuthenticated, clearCart } =
     useContext(AppContext);
   const [state, setState] = useState({ cart: cart });
   const [userSignedin, setUserSignedIn] = useState({});
@@ -18,6 +18,11 @@ function MyApp(props) {
     if (currentUser) {
       setAuthed(true);
     }
+  };
+
+  clearCart = () => {
+    console.log("clearCart called");
+    setState({ cart: { items: [], total: 0 } });
   };
 
   addItem = (item) => {
@@ -84,8 +89,10 @@ function MyApp(props) {
         isAuthenticated: authed,
         user: userSignedin,
         setUser: setUser,
+        clearCart: clearCart,
       }}
     >
+      {/* <button onClick={clearCart}>Clear Cart</button> */}
       <Head>
         <link
           rel="stylesheet"
