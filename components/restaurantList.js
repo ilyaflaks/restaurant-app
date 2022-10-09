@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import Dishes from "./dishes";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 
 //import "bootstrap/dist/css/bootstrap.min.css";
 import AppContext from "./context";
@@ -162,10 +162,10 @@ function RestaurantList(props) {
   const [state, setState] = useState(cart);
   const [showDishes, setShowDishes] = useState(false);
   const { addItem, isAuthenticated, user } = useContext(AppContext);
-
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showAllDishes, setShowAllDishes] = useState(true);
   const [selectedRestaurantDishes, setSelectedRestaurantDishes] = useState([]);
+  const dishElement = useRef(null);
 
   useEffect(() => {
     setShowDishes(true);
@@ -198,6 +198,10 @@ function RestaurantList(props) {
     data.restaurants.filter((res) => {
       return res.name.toLowerCase().includes(props.search);
     }) || [];
+
+  function ScrollDiv() {
+    return <div ref={dishElement}></div>;
+  }
 
   function DishesList() {
     if (restaurantID) {
@@ -281,6 +285,7 @@ function RestaurantList(props) {
               onClick={() => {
                 if (user) {
                   setRestaurantID(res.id);
+                  dishElement.current.focus();
                 } else {
                   alert(
                     "Please log in to see the menu and add items to your cart"
@@ -299,6 +304,7 @@ function RestaurantList(props) {
       <Container>
         <Row xs="3">{restList}</Row>
         {showSearchResults && <h4>Place for search results</h4>}
+        <ScrollDiv />
         {user && <DishesList />}
       </Container>
     );
