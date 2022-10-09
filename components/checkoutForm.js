@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FormGroup, Label, Input } from "reactstrap";
 import fetch from "isomorphic-fetch";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -8,6 +8,10 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 function CheckoutForm() {
+  useEffect(() => {
+    setHideCardSection(false);
+  }, []);
+
   const [data, setData] = useState({
     address: "",
     city: "",
@@ -20,6 +24,7 @@ function CheckoutForm() {
   const elements = useElements(); //also from stripe
   const appContext = useContext(AppContext);
   const [loadingStripe, setLoadingStripe] = useState(false);
+  const [hideCardSection, setHideCardSection] = useState(false);
   function onChange(e) {
     //this is pretty clever, keep
     //called by the ipouts for Address, city and state
@@ -84,6 +89,7 @@ function CheckoutForm() {
           console.log("Successful payment");
           setSuccess(true);
           setError(false);
+          setHideCardSection(true);
         } else {
           console.log(response);
           setLoadingStripe(false);
@@ -137,7 +143,13 @@ function CheckoutForm() {
         </div>
       </FormGroup>
 
-      <CardSection data={data} stripeError={error} submitOrder={submitOrder} />
+      {!hideCardSection && (
+        <CardSection
+          data={data}
+          stripeError={error}
+          submitOrder={submitOrder}
+        />
+      )}
       {loadingStripe && <h3>Loading...</h3>}
       {success && (
         <div>
