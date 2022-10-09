@@ -241,16 +241,23 @@ function Login(props) {
                       {showPwResetMessage && <h5>{passwordResetMessage}</h5>}
                     </fieldset>
                   </Form>
-                  <Button color="info" outline onClick={loginWithGoogle}>
+                  <Button
+                    color="info"
+                    outline
+                    style={{
+                      margin: "10px 100px",
+                    }}
+                    onClick={loginWithGoogle}
+                  >
                     Login with Google
                   </Button>
-                  <Button
+                  {/* <Button
                     color="info"
                     style={{ margin: "10px 18px" }}
                     onClick={logInWithFacebook}
                   >
                     Login with Facebook
-                  </Button>
+                  </Button> */}
                 </div>
               ) : (
                 <div>

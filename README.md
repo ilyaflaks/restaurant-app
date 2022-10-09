@@ -28,7 +28,7 @@
 
 ### The backend is a separate repo, feel free to view it here: https://github.com/ilyaflaks/server-restaurant-app
 
-### You are also welcome to explore the database used for this app by going to [Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer) and entering https://ilya-server-restaurant.herokuapp.com/graphql in the address line
+### You are also welcome to explore the database used for this app by going to [Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer) and entering https://ilya-server-restaurant.herokuapp.com/graphql in the address line. Since the backend includes the Apollo Server, the queries are pre-written and you can select the ones you are interested in
 
 ### This app is a project for MIT xPro Professional Certificate in Coding bootcamp. Most of the credit goes to Dr Williams and Dr Sanchez for writing the starter code.
 
