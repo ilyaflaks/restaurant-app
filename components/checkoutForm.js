@@ -19,8 +19,7 @@ function CheckoutForm() {
   const stripe = useStripe(); //from stripe
   const elements = useElements(); //also from stripe
   const appContext = useContext(AppContext);
-  //context has items in the cart and potentially user
-
+  const [loadingStripe, setLoadingStripe] = useState(false);
   function onChange(e) {
     //this is pretty clever, keep
     //called by the ipouts for Address, city and state
@@ -42,6 +41,7 @@ function CheckoutForm() {
 
   async function submitOrder(event) {
     event.preventDefault();
+    //setError("Loading");
     const regex1 = /[a-zA-Z]/;
 
     if (
@@ -67,6 +67,7 @@ function CheckoutForm() {
     });
 
     if (!error) {
+      setLoadingStripe(true);
       try {
         console.log("INSIDE TRY ");
         const { id } = paymentMethod;
@@ -79,11 +80,13 @@ function CheckoutForm() {
         );
 
         if (response.data.success) {
+          setLoadingStripe(false);
           console.log("Successful payment");
           setSuccess(true);
           setError(false);
         } else {
           console.log(response);
+          setLoadingStripe(false);
           let newError = { message: response.data.message };
           setError(newError);
           setSuccess(false);
@@ -135,6 +138,7 @@ function CheckoutForm() {
       </FormGroup>
 
       <CardSection data={data} stripeError={error} submitOrder={submitOrder} />
+      {loadingStripe && <h3>Loading...</h3>}
       {success && (
         <div>
           <br />

@@ -285,7 +285,7 @@ function RestaurantList(props) {
               onClick={() => {
                 if (user) {
                   setRestaurantID(res.id);
-                  dishElement.current.focus();
+                  dishElement.current.scrollIntoView({ behavior: "smooth" });
                 } else {
                   alert(
                     "Please log in to see the menu and add items to your cart"
@@ -301,7 +301,7 @@ function RestaurantList(props) {
     ));
 
     return (
-      <Container>
+      <Container style={{ scrollBehavior: "smooth" }}>
         <Row xs="3">{restList}</Row>
         {showSearchResults && <h4>Place for search results</h4>}
         <ScrollDiv />
