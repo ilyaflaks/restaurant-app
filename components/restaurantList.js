@@ -174,7 +174,6 @@ function RestaurantList(props) {
       );
       let restName = selectedRes[0].name;
       let dishArray = selectedRes[0].dishes;
-      //setSelectedRestaurantDishes(dishArray);
       const mapThroughDishes = dishArray.map((dish) => (
         <Col
           xs="6"

@@ -81,7 +81,7 @@ const Layout = (props) => {
               </Link>
             ) : (
               <Link href="/login">
-                <a className="nav-link">Sign in</a>
+                <a className="nav-link">Log in</a>
               </Link>
             )}
           </NavItem>
