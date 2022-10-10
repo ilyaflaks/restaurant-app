@@ -17,7 +17,6 @@ function Dishes({ restaurantID }) {
   console.log("restaurantID");
   console.log(restaurantID);
   const { addItem } = useContext(AppContext);
-
   const GET_RESTAURANT_DISHES = gql`
     query ($id: ID!) {
       restaurant(id: $id) {

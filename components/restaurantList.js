@@ -61,14 +61,14 @@ const SearchMenu = ({
   const restOfChoice = data.restaurants.filter(
     (rest) => rest.id === restaurantID
   );
-  console.log(restOfChoice);
-  console.log("restOfChoice");
-  console.log(restOfChoice[0]);
+  // console.log(restOfChoice);
+  // console.log("restOfChoice");
+  // console.log(restOfChoice[0]);
   const allDishes = restOfChoice[0].dishes;
-  console.log("allDishes");
-  console.log(allDishes);
-  console.log("searchValue");
-  console.log(searchValue);
+  // console.log("allDishes");
+  // console.log(allDishes);
+  // console.log("searchValue");
+  // console.log(searchValue);
 
   const ResultsMapping = () => {
     if (searchValue && searchResult.length > 0) {
@@ -135,7 +135,7 @@ const SearchMenu = ({
     <div>
       <InputGroup>
         <Input
-          autoFocus={true}
+          // autoFocus={true}
           key="searchDish"
           placeholder="Search Dishes"
           onChange={(e) => {

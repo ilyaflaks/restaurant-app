@@ -11,8 +11,16 @@ import {
 import RestaurantList from "../components/restaurantList";
 import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
+const cache = new InMemoryCache();
+
+const API_URL = "https://ilya-server-restaurant.herokuapp.com/graphql";
+
+const client = new ApolloClient({
+  uri: API_URL,
+  cache: cache,
+});
+
 function Home() {
-  const API_URL = "https://ilya-server-restaurant.herokuapp.com/graphql";
   //const API_URL = "http://localhost:4000/graphql";
 
   const [query, setQuery] = useState("");
@@ -21,12 +29,6 @@ function Home() {
 
   // console.log("API_URL: ");
   // console.log(API_URL);
-  const cache = new InMemoryCache();
-
-  const client = new ApolloClient({
-    uri: API_URL,
-    cache: new InMemoryCache(),
-  });
 
   // client
   // .query({
