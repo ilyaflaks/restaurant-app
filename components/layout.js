@@ -17,13 +17,11 @@ const Layout = (props) => {
   const { user, isAuthenticated, setUser } = useContext(AppContext);
 
   const logout = async () => {
-    //    console.log("logout function called");
     await signOut(auth);
     setUser({});
   };
 
   onAuthStateChanged(auth, (currentUser) => {
-    //    console.log("something changed in Auth State");
     setUser(currentUser);
   });
 

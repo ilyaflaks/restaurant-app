@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Button, Card, CardBody, CardTitle, Badge } from "reactstrap";
 import AppContext from "./context";
 import Link from "next/link";
-function Cart() {
+function Cart({ checkout }) {
   let isAuthenticated = true;
   let { cart, addItem, removeItem, user, clearCart } = useContext(AppContext);
   const router = useRouter();
@@ -70,11 +70,13 @@ function Cart() {
           <h5 style={{ fontWeight: 100, color: "gray" }}>Total:</h5>
           <h3 style={{ color: "gray" }}>${cart.total}</h3>
         </Badge>
-        <Link href="/checkout/">
-          <Button style={{ width: "60%" }} color="primary">
-            <a>Order</a>
-          </Button>
-        </Link>
+        {!checkout && (
+          <Link href="/checkout/">
+            <Button style={{ width: "60%" }} color="primary">
+              <a>Order</a>
+            </Button>
+          </Link>
+        )}
       </div>
     );
   };

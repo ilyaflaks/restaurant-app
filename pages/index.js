@@ -21,31 +21,7 @@ const client = new ApolloClient({
 });
 
 function Home() {
-  //const API_URL = "http://localhost:4000/graphql";
-
   const [query, setQuery] = useState("");
-
-  // console.log(process.env.NEXT_PUBLIC_API_URL);
-
-  // console.log("API_URL: ");
-  // console.log(API_URL);
-
-  // client
-  // .query({
-  //   query: gql`
-  //     query Restaurants {
-  //       restaurants {
-  //         id
-  //         name
-  //         description
-  //         dishes {
-  //           name
-  //         }
-  //       }
-  //     }
-  //   `,
-  // })
-  //   .then((result) => console.log(result));
 
   return (
     <ApolloProvider client={client}>

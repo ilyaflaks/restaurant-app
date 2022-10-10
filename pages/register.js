@@ -134,19 +134,12 @@ const Register = () => {
                           console.log("registerEmail: " + registerPassword);
                         }}
                         value={registerPassword}
-                        //
-
                         type="password"
                         name="password"
                         style={{ height: 50, fontSize: "1.2em" }}
                       />
                     </FormGroup>
                     <FormGroup>
-                      {/* <span>
-                      <a href="">
-                        <small>Forgot Password?</small>
-                      </a>
-                    </span> */}
                       <Button
                         style={{ float: "right", width: 120 }}
                         color="primary"

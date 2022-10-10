@@ -92,7 +92,6 @@ function MyApp(props) {
         clearCart: clearCart,
       }}
     >
-      {/* <button onClick={clearCart}>Clear Cart</button> */}
       <Head>
         <link
           rel="stylesheet"

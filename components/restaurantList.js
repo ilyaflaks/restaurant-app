@@ -19,33 +19,6 @@ import {
   Input,
 } from "reactstrap";
 
-// function Fetchdish(props) {
-//   console.log("props.id");
-//   console.log(props.id);
-//   const GET_RESTAURANT_DISHES = gql`
-//     query ($id: ID!) {
-//       restaurants(id: $id) {
-//         id
-//         name
-//         dishes {
-//           id
-//           name
-//           description
-//           price
-//         }
-//       }
-//     }
-//   `;
-
-//   const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
-//     variables: { id: props.id },
-//   });
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>ERROR here</p>;
-//   if (!data) return <p>Not found</p>;
-// }
-
 const SearchMenu = ({
   setShowSearchResults,
   selectedRestaurantDishes,
@@ -61,14 +34,8 @@ const SearchMenu = ({
   const restOfChoice = data.restaurants.filter(
     (rest) => rest.id === restaurantID
   );
-  // console.log(restOfChoice);
-  // console.log("restOfChoice");
-  // console.log(restOfChoice[0]);
+
   const allDishes = restOfChoice[0].dishes;
-  // console.log("allDishes");
-  // console.log(allDishes);
-  // console.log("searchValue");
-  // console.log(searchValue);
 
   const ResultsMapping = () => {
     if (searchValue && searchResult.length > 0) {
@@ -101,7 +68,6 @@ const SearchMenu = ({
                 </CardBody>
                 <div className="card-footer">
                   <Button
-                    // color="info"
                     outline
                     color="primary"
                     onClick={() => addItem(result)}
@@ -126,7 +92,6 @@ const SearchMenu = ({
   useEffect(() => {
     let searchRes = allDishes.filter((dish) => {
       return dish.name.toLowerCase().includes(searchValue);
-      //   return dish.name.toLowerCase() === searchValue;
     });
     setSearchResult(searchRes);
   }, [searchValue]);
@@ -135,7 +100,6 @@ const SearchMenu = ({
     <div>
       <InputGroup>
         <Input
-          // autoFocus={true}
           key="searchDish"
           placeholder="Search Dishes"
           onChange={(e) => {

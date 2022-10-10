@@ -100,28 +100,12 @@ function CheckoutForm() {
         }
       } catch (error) {
         console.log("Error", error);
-        //       setError(error);
       }
     } else {
       console.log(error.message);
       setError(error);
     }
   }
-
-  // OTHER stripe methods you can use depending on app
-  // // or createPaymentMethod - https://stripe.com/docs/js/payment_intents/create_payment_method
-  // stripe.createPaymentMethod({
-  //   type: "card",
-  //   card: cardElement,
-  // });
-
-  // // or confirmCardPayment - https://stripe.com/docs/js/payment_intents/confirm_card_payment
-  // stripe.confirmCardPayment(paymentIntentClientSecret, {
-  //   payment_method: {
-  //     card: cardElement,
-  //   },
-  // });
-  //  }
 
   return (
     <div className="paper">

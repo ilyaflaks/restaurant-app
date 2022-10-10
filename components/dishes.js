@@ -59,12 +59,7 @@ function Dishes({ restaurantID }) {
                 <CardText>{res.description}</CardText>
               </CardBody>
               <div className="card-footer">
-                <Button
-                  // color="info"
-                  outline
-                  color="primary"
-                  onClick={() => addItem(res)}
-                >
+                <Button outline color="primary" onClick={() => addItem(res)}>
                   + Add To Cart
                 </Button>
               </div>

@@ -10,7 +10,6 @@ import {
   Label,
   Input,
 } from "reactstrap";
-//import { login } from "../components/auth";
 import AppContext from "../components/context";
 import {
   signInWithEmailAndPassword,
@@ -24,7 +23,6 @@ import {
   FacebookAuthProvider,
   sendPasswordResetEmail,
 } from "firebase/auth";
-//import firebase from "firebase/app";
 
 import { auth } from "../components/firebase-config";
 
@@ -70,7 +68,6 @@ function Login(props) {
   const logInWithFacebook = () => {
     signInWithPopup(auth, providerBook)
       .then((result) => {
-        console.log("Inside then block");
         // The signed-in user info.
         const user = result.user;
         console.log("user");
@@ -84,8 +81,6 @@ function Login(props) {
         console.log(accessToken);
       })
       .catch((error) => {
-        console.log("Inside catch block");
-
         const errorCode = error.code;
         console.log("errorCode");
         console.log(errorCode);
@@ -103,7 +98,6 @@ function Login(props) {
   const loginWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("Inside then block");
         const credential = GoogleAuthProvider.credentialFromResult(result);
         console.log("Icredential");
         console.log(credential);
@@ -117,7 +111,6 @@ function Login(props) {
         // ...
       })
       .catch((error) => {
-        console.log("Inside the catch block");
         // Handle Errors here.
         const errorCode = error.code;
         console.log("errorCode");
@@ -129,9 +122,7 @@ function Login(props) {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
-    /////
   };
 
   const logout = async () => {
@@ -164,8 +155,6 @@ function Login(props) {
           const errorMessage = error.message;
           console.log("errorMessage");
           console.log(errorMessage);
-
-          // ..
         });
     } else {
       alert('Please enter an email in the "Email" field');
@@ -251,23 +240,12 @@ function Login(props) {
                   >
                     Login with Google
                   </Button>
-                  {/* <Button
-                    color="info"
-                    style={{ margin: "10px 18px" }}
-                    onClick={logInWithFacebook}
-                  >
-                    Login with Facebook
-                  </Button> */}
                 </div>
               ) : (
                 <div>
                   <h4>Thank you for logging in! </h4>
                   <h5>You are now signed in as {loginEmail}</h5>
-                  <Button
-                    // style={{ float: "right", width: 120 }}
-                    color="primary"
-                    onClick={logout}
-                  >
+                  <Button color="primary" onClick={logout}>
                     Log Out
                   </Button>
                   <Button style={{ marginLeft: "10px" }} onClick={goHome}>
