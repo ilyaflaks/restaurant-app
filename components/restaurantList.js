@@ -248,7 +248,7 @@ function RestaurantList(props) {
                   setShowAllRestaurants(false);
                   setShowInput(false);
                   setShowAllDishes(true);
-                  dishElement.current.scrollIntoView({ behavior: "smooth" });
+                  // dishElement.current.scrollIntoView({ behavior: "smooth" });
                 } else {
                   alert(
                     "Please log in to see the menu and add items to your cart"
