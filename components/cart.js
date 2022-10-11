@@ -7,7 +7,6 @@ function Cart({ checkout }) {
   let isAuthenticated = true;
   let { cart, addItem, removeItem, user, clearCart } = useContext(AppContext);
   const router = useRouter();
-  console.log(`Router Path: ${JSON.stringify(router)}`);
   const renderItems = () => {
     let { items } = cart;
     console.log(`items: ${JSON.stringify(items)}`);
@@ -114,7 +113,9 @@ function Cart({ checkout }) {
           `}</style>
         </div>
       ) : (
-        <h4 style={{ marginLeft: "50px" }}>Please log in or create account</h4>
+        <h4 style={{ marginLeft: "50px" }}>
+          Please log in or create an account
+        </h4>
       )}
     </div>
   );

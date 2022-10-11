@@ -22,21 +22,30 @@ const client = new ApolloClient({
 
 function Home() {
   const [query, setQuery] = useState("");
+  const [showInput, setShowInput] = useState(true);
 
   return (
     <ApolloProvider client={client}>
       <div className="search">
-        <h2> Local Restaurants</h2>
-        <InputGroup>
-          <InputGroupAddon addonType="append"> Search </InputGroupAddon>
-          <Input
-            onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}
-            value={query}
-          />
-        </InputGroup>
+        {showInput && (
+          <div>
+            <h2> Local Restaurants</h2>
+            <InputGroup>
+              <InputGroupAddon addonType="append"> Search </InputGroupAddon>
+              <Input
+                onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}
+                value={query}
+              />
+            </InputGroup>
+          </div>
+        )}
         <br></br>
       </div>
-      <RestaurantList search={query} />
+      <RestaurantList
+        search={query}
+        setShowInput={setShowInput}
+        setQuery={setQuery}
+      />
       <Cart> </Cart>
     </ApolloProvider>
   );

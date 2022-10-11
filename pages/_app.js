@@ -48,7 +48,6 @@ function MyApp(props) {
           if (item.id === foundItem.id) {
             return Object.assign({}, item, { quantity: item.quantity + 1 });
           } else {
-            //not sure if this condition is necessary since we are already in the else statement for the truthiness of foundItem
             return item;
           }
         }),

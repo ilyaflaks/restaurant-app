@@ -2,7 +2,6 @@ import { gql, useQuery } from "@apollo/client";
 import Dishes from "./dishes";
 import { useContext, useEffect, useState, useRef } from "react";
 
-//import "bootstrap/dist/css/bootstrap.min.css";
 import AppContext from "./context";
 import {
   Button,
@@ -20,7 +19,6 @@ import {
 } from "reactstrap";
 
 const SearchMenu = ({
-  setShowSearchResults,
   selectedRestaurantDishes,
   setShowAllDishes,
   restaurantID,
@@ -39,8 +37,6 @@ const SearchMenu = ({
 
   const ResultsMapping = () => {
     if (searchValue && searchResult.length > 0) {
-      console.log("resultsMapping. searchResult.length > 0");
-
       return (
         <div>
           <h4 style={{ textAlign: "center", marginTop: "15px" }}>
@@ -83,8 +79,7 @@ const SearchMenu = ({
           </h4>
         </div>
       );
-    } //if ends
-    else {
+    } else {
       return <div></div>;
     }
   };
@@ -122,18 +117,16 @@ const SearchMenu = ({
 
 function RestaurantList(props) {
   const [restaurantID, setRestaurantID] = useState(0);
-  const { cart } = useContext(AppContext);
+  const { cart, clearCart } = useContext(AppContext);
   const [state, setState] = useState(cart);
   const [showDishes, setShowDishes] = useState(false);
   const { addItem, isAuthenticated, user } = useContext(AppContext);
-  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [showAllRestaurants, setShowAllRestaurants] = useState(true);
   const [showAllDishes, setShowAllDishes] = useState(true);
   const [selectedRestaurantDishes, setSelectedRestaurantDishes] = useState([]);
   const dishElement = useRef(null);
-
-  useEffect(() => {
-    setShowDishes(true);
-  }, [restaurantID]);
+  const setShowInput = props.setShowInput;
+  const setQuery = props.setQuery;
 
   const GET_RESTAURANTS = gql`
     query Restaurants {
@@ -167,6 +160,14 @@ function RestaurantList(props) {
     return <div ref={dishElement}></div>;
   }
 
+  function backToRestaurants() {
+    clearCart();
+    setShowInput(true);
+    setQuery("");
+    setShowAllDishes(false);
+    setShowAllRestaurants(true);
+  }
+
   function DishesList() {
     if (restaurantID) {
       let selectedRes = data.restaurants.filter(
@@ -185,47 +186,43 @@ function RestaurantList(props) {
           }}
           key={dish.id}
         >
-          {setShowAllDishes && (
-            <Card style={{ margin: "0 10px" }}>
-              <CardImg
-                top={true}
-                style={{ height: 150, width: 180, margin: "auto" }}
-                src={dish.img}
-              />
-              <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>${dish.price}</CardText>
-                <CardText>{dish.description}</CardText>
-              </CardBody>
-              <div className="card-footer">
-                <Button
-                  // color="info"
-                  outline
-                  color="primary"
-                  onClick={() => addItem(dish)}
-                >
-                  + Add To Cart
-                </Button>
-              </div>
-            </Card>
-          )}
+          <Card style={{ margin: "0 10px" }}>
+            <CardImg
+              top={true}
+              style={{ height: 150, width: 180, margin: "auto" }}
+              src={dish.img}
+            />
+            <CardBody>
+              <CardTitle>{dish.name}</CardTitle>
+              <CardText>${dish.price}</CardText>
+              <CardText>{dish.description}</CardText>
+            </CardBody>
+            <div className="card-footer">
+              <Button outline color="primary" onClick={() => addItem(dish)}>
+                + Add To Cart
+              </Button>
+            </div>
+          </Card>
         </Col>
       ));
 
       return (
         <div>
-          <br /> <h4>{restName} Menu</h4>
-          <SearchMenu
-            setShowSearchResults={setShowSearchResults}
-            selectedRestaurantDishes={selectedRestaurantDishes}
-            setShowAllDishes={setShowAllDishes}
-            restaurantID={restaurantID}
-            data={data}
-            addItem={addItem}
-          />
-          {showSearchResults && <h5>RESULTZ</h5>}
-          <br />
-          {mapThroughDishes}
+          {showAllDishes && (
+            <div>
+              {" "}
+              <br /> <h4>{restName} Menu</h4>
+              <SearchMenu
+                selectedRestaurantDishes={selectedRestaurantDishes}
+                setShowAllDishes={setShowAllDishes}
+                restaurantID={restaurantID}
+                data={data}
+                addItem={addItem}
+              />
+              <br />
+              {mapThroughDishes}
+            </div>
+          )}
         </div>
       );
     } else {
@@ -248,6 +245,9 @@ function RestaurantList(props) {
               onClick={() => {
                 if (user) {
                   setRestaurantID(res.id);
+                  setShowAllRestaurants(false);
+                  setShowInput(false);
+                  setShowAllDishes(true);
                   dishElement.current.scrollIntoView({ behavior: "smooth" });
                 } else {
                   alert(
@@ -265,8 +265,13 @@ function RestaurantList(props) {
 
     return (
       <Container style={{ scrollBehavior: "smooth" }}>
-        <Row xs="3">{restList}</Row>
-        {showSearchResults && <h4>Place for search results</h4>}
+        {showAllRestaurants ? (
+          <Row xs="3">{restList}</Row>
+        ) : (
+          <Button onClick={backToRestaurants}>
+            &larr; Back to Restaurants
+          </Button>
+        )}
         <ScrollDiv />
         {user && <DishesList />}
       </Container>

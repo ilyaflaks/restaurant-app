@@ -57,8 +57,6 @@ const Register = () => {
 
       let errorToShow = firebaseError.replace("Firebase: ", "");
       setErrorMsg(errorToShow);
-
-      //setErrorMsg(error.message);
     }
   };
 
