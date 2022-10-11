@@ -38,10 +38,6 @@ const Register = () => {
   const appContext = useContext(AppContext);
 
   const { user, setUser, isAuthenticated } = appContext;
-  console.log("in Register, user:");
-  console.log(user);
-  console.log("in Register, isAuthenticated:");
-  console.log(isAuthenticated);
 
   const register = async () => {
     try {
@@ -54,8 +50,15 @@ const Register = () => {
       setShowForm(false);
       //     setSuccess(true);
     } catch (error) {
+      console.log("error");
+      console.log(error);
       console.log(error.message);
-      setErrorMsg(error.message);
+      let firebaseError = error.message;
+
+      let errorToShow = firebaseError.replace("Firebase: ", "");
+      setErrorMsg(errorToShow);
+
+      //setErrorMsg(error.message);
     }
   };
 
@@ -96,10 +99,6 @@ const Register = () => {
                         disabled={loading}
                         onChange={(event) => {
                           setRegisterUsername(event.target.value);
-                          console.log(
-                            "event.target.value: " + event.target.value
-                          );
-                          console.log("registerEmail: " + registerUsername);
                         }}
                         value={registerUsername}
                         type="text"
@@ -112,10 +111,6 @@ const Register = () => {
                       <Input
                         onChange={(event) => {
                           setRegisterEmail(event.target.value);
-                          console.log(
-                            "event.target.value: " + event.target.value
-                          );
-                          console.log("registerEmail: " + registerEmail);
                         }}
                         value={registerEmail}
                         type="email"
@@ -128,10 +123,6 @@ const Register = () => {
                       <Input
                         onChange={(event) => {
                           setRegisterPassword(event.target.value);
-                          console.log(
-                            "event.target.value: " + event.target.value
-                          );
-                          console.log("registerEmail: " + registerPassword);
                         }}
                         value={registerPassword}
                         type="password"

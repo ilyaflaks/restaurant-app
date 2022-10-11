@@ -58,8 +58,9 @@ function Login(props) {
       setErrorMsg("");
       setShowForm(false);
     } catch (error) {
-      console.log(error.message);
-      setErrorMsg(error.message);
+      let firebaseError = error.message;
+      let errorToShow = firebaseError.replace("Firebase: ", "");
+      setErrorMsg(errorToShow);
     }
   };
 
@@ -68,26 +69,13 @@ function Login(props) {
   const logInWithFacebook = () => {
     signInWithPopup(auth, providerBook)
       .then((result) => {
-        // The signed-in user info.
         const user = result.user;
-        console.log("user");
-        console.log(user);
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
-        console.log("credential:");
-        console.log(credential);
         const accessToken = credential.accessToken;
-        console.log("accessToken");
-        console.log(accessToken);
       })
       .catch((error) => {
         const errorCode = error.code;
-        console.log("errorCode");
-        console.log(errorCode);
         const errorMessage = error.message;
-
-        console.log("errorMessage");
-        console.log(errorMessage);
         const email = error.customData.email;
         const credential = FacebookAuthProvider.credentialFromError(error);
       });
