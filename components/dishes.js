@@ -13,9 +13,6 @@ import {
   Col,
 } from "reactstrap";
 function Dishes({ restaurantID }) {
-  console.log("in Dishes component");
-  console.log("restaurantID");
-  console.log(restaurantID);
   const { addItem } = useContext(AppContext);
   const GET_RESTAURANT_DISHES = gql`
     query ($id: ID!) {
@@ -43,10 +40,6 @@ function Dishes({ restaurantID }) {
   if (!data) return <p>Not found</p>;
 
   let restaurant = data.restaurant;
-  console.log("inside dishes");
-  console.log(restaurant);
-  console.log(restaurant.dishes);
-  console.log("restaurantID: " + restaurantID);
 
   if (restId > 0) {
     return (
