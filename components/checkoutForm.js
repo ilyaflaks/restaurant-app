@@ -34,15 +34,7 @@ function CheckoutForm() {
     setData({ ...data, updateItem });
   }
 
-  console.log("appContext in Checkout form:");
-  console.log(appContext);
   const { user, cart, clearCart } = appContext;
-  console.log("user");
-  console.log(user);
-  console.log("cart");
-  console.log(cart);
-  console.log("cart total");
-  console.log(cart.total);
 
   async function submitOrder(event) {
     event.preventDefault();
@@ -86,7 +78,6 @@ function CheckoutForm() {
 
         if (response.data.success) {
           setLoadingStripe(false);
-          console.log("Successful payment");
           setSuccess(true);
           setError(false);
           setHideCardSection(true);

@@ -12,7 +12,6 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { registerUser } from "../components/auth";
 import AppContext from "../components/context";
 
 import {

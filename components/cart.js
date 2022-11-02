@@ -9,7 +9,7 @@ function Cart({ checkout }) {
   const router = useRouter();
   const renderItems = () => {
     let { items } = cart;
-    console.log(`items: ${JSON.stringify(items)}`);
+    //console.log(`items: ${JSON.stringify(items)}`);
     if (items && items.length) {
       var itemList = cart.items.map((item) => {
         if (item.quantity > 0) {
