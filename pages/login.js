@@ -87,24 +87,15 @@ function Login(props) {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log("Icredential");
-        console.log(credential);
         const token = credential.accessToken;
-        console.log("token");
-        console.log(token);
         // The signed-in user info.
         const user = result.user;
-        console.log("user");
-        console.log(user);
         // ...
       })
       .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
-        console.log("errorCode");
-        console.log(errorCode);
         const errorMessage = error.message;
-        console.log("errorMessage");
         console.log(errorMessage);
         // The email of the user's account used.
         const email = error.customData.email;
@@ -134,14 +125,8 @@ function Login(props) {
           );
         })
         .catch((error) => {
-          console.log("catch block");
-
           const errorCode = error.code;
-          console.log("errorCode");
-          console.log(errorCode);
-
           const errorMessage = error.message;
-          console.log("errorMessage");
           console.log(errorMessage);
         });
     } else {

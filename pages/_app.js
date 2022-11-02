@@ -21,7 +21,6 @@ function MyApp(props) {
   };
 
   clearCart = () => {
-    console.log("clearCart called");
     setState({ cart: { items: [], total: 0 } });
   };
 
