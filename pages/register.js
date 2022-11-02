@@ -50,9 +50,6 @@ const Register = () => {
       setShowForm(false);
       //     setSuccess(true);
     } catch (error) {
-      console.log("error");
-      console.log(error);
-      console.log(error.message);
       let firebaseError = error.message;
 
       let errorToShow = firebaseError.replace("Firebase: ", "");
