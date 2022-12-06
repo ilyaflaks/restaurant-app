@@ -26,9 +26,6 @@ function CheckoutForm() {
   const [loadingStripe, setLoadingStripe] = useState(false);
   const [hideCardSection, setHideCardSection] = useState(false);
   function onChange(e) {
-    //this is pretty clever, keep
-    //called by the ipouts for Address, city and state
-    // set the key = to the name property equal to the value typed
     const updateItem = (data[e.target.name] = e.target.value);
     // update the state data object
     setData({ ...data, updateItem });
@@ -38,7 +35,7 @@ function CheckoutForm() {
 
   async function submitOrder(event) {
     event.preventDefault();
-    //setError("Loading");
+
     const regex1 = /[a-zA-Z]/;
 
     if (
@@ -66,7 +63,6 @@ function CheckoutForm() {
     if (!error) {
       setLoadingStripe(true);
       try {
-        console.log("INSIDE TRY ");
         const { id } = paymentMethod;
         const response = await axios.post(
           "https://ilya-server-restaurant.herokuapp.com/payment",

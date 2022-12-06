@@ -40,7 +40,11 @@ function Login(props) {
   const [showPwResetMessage, setShowPwResetMessage] = useState(false);
   const [passwordResetMessage, setPasswordResetMessage] = useState("");
 
-  const { user, setUser, isAuthenticated } = appContext;
+  const { user, setUser, isAuthenticated, clearCart } = appContext;
+
+  const goHome = () => {
+    router.push("/");
+  };
 
   const auth = getAuth();
 
@@ -57,6 +61,7 @@ function Login(props) {
       );
       setErrorMsg("");
       setShowForm(false);
+      clearCart();
     } catch (error) {
       let firebaseError = error.message;
       let errorToShow = firebaseError.replace("Firebase: ", "");
@@ -91,6 +96,8 @@ function Login(props) {
         // The signed-in user info.
         const user = result.user;
         // ...
+        clearCart();
+        goHome();
       })
       .catch((error) => {
         // Handle Errors here.
@@ -108,10 +115,8 @@ function Login(props) {
     await signOut(auth);
     setShowForm(true);
     setUser({});
-  };
-
-  const goHome = () => {
-    router.push("/");
+    clearCart();
+    goHome();
   };
 
   const sendPasswordReset = () => {

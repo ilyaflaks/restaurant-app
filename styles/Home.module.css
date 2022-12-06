@@ -114,6 +114,10 @@
   height: 1em;
 }
 
+.results-grid {
+  background-color: aquamarine;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

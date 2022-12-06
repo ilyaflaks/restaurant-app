@@ -1,6 +1,13 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
-import { Button, Card, CardBody, CardTitle, Badge } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardTitle,
+  CardGroup,
+  Badge,
+} from "reactstrap";
 import AppContext from "./context";
 import Link from "next/link";
 function Cart({ checkout }) {
@@ -20,8 +27,17 @@ function Cart({ checkout }) {
               key={item.id}
             >
               <div>
-                <span id="item-price">&nbsp; ${item.price}</span>
-                <span id="item-name">&nbsp; {item.name}</span>
+                <span
+                  // id="item-price"
+                  style={{ fontSize: "1.3em", color: "rgba(97, 97, 97, 1)" }}
+                >
+                  &nbsp; ${item.price}
+                </span>
+                <span
+                  style={{ fontSize: "1.3em", color: "rgba(97, 97, 97, 1)" }}
+                >
+                  &nbsp; {item.name}
+                </span>
               </div>
               <div>
                 <Button
@@ -49,7 +65,14 @@ function Cart({ checkout }) {
                 >
                   -
                 </Button>
-                <span style={{ marginLeft: 5 }} id="item-quantity">
+                <span
+                  style={{
+                    marginLeft: 5,
+                    fontSize: "0.95em",
+                    paddingBottom: "4px",
+                    color: "rgba(158, 158, 158, 1)",
+                  }}
+                >
                   {item.quantity}x
                 </span>
               </div>
@@ -69,10 +92,14 @@ function Cart({ checkout }) {
           <h5 style={{ fontWeight: 100, color: "gray" }}>Total:</h5>
           <h3 style={{ color: "gray" }}>${cart.total}</h3>
         </Badge>
+        <br />
         {!checkout && (
           <Link href="/checkout/">
-            <Button style={{ width: "60%" }} color="primary">
-              <a>Order</a>
+            <Button
+              style={{ padding: "5px 60px 5px 60px", marginTop: "20px" }}
+              color="primary"
+            >
+              <a>Checkout</a>
             </Button>
           </Link>
         )}
@@ -83,9 +110,11 @@ function Cart({ checkout }) {
   return (
     <div>
       {user ? (
-        <div>
-          <h1> Cart</h1>
+        <div style={{ marginTop: "50px" }}>
+          {/* <br /> */}
+
           <Card style={{ padding: "10px 5px" }} className="cart">
+            <h1> Cart</h1>
             <CardTitle style={{ margin: 10 }}>Your Order:</CardTitle>
             <hr />
             <CardBody style={{ padding: 10 }}>
@@ -96,21 +125,6 @@ function Cart({ checkout }) {
               <div>{checkoutItems()}</div>
             </CardBody>
           </Card>
-          <style jsx>{`
-            #item-price {
-              font-size: 1.3em;
-              color: rgba(97, 97, 97, 1);
-            }
-            #item-quantity {
-              font-size: 0.95em;
-              padding-bottom: 4px;
-              color: rgba(158, 158, 158, 1);
-            }
-            #item-name {
-              font-size: 1.3em;
-              color: rgba(97, 97, 97, 1);
-            }
-          `}</style>
         </div>
       ) : (
         <h4 style={{ marginLeft: "50px" }}>

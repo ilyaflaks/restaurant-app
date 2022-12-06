@@ -13,6 +13,7 @@ import {
   Container,
   Row,
   Col,
+  CardGroup,
   InputGroup,
   InputGroupAddon,
   Input,
@@ -44,34 +45,46 @@ const SearchMenu = ({
           </h4>
           {searchResult.map((result, index) => {
             return (
-              <Card
-                style={{
-                  margin: "20px 10px 0px 0px",
-                  width: 300,
-                  display: "inline-block",
-                }}
+              <Col
+                xs="10"
+                sm="4"
                 key={index}
+                style={{
+                  padding: 0,
+                  display: "inline-block",
+                  marginTop: "5px",
+                }}
               >
-                <CardImg
-                  top={true}
-                  style={{ height: 150, width: 180, margin: "auto" }}
-                  src={result.img}
-                />
-                <CardBody>
-                  <CardTitle>{result.name}</CardTitle>
-                  <CardText>${result.price}</CardText>
-                  <CardText>{result.description}</CardText>
-                </CardBody>
-                <div className="card-footer">
-                  <Button
-                    outline
-                    color="primary"
-                    onClick={() => addItem(result)}
+                <CardGroup>
+                  <Card
+                    style={{
+                      margin: "20px 10px 0px 0px",
+                      width: 300,
+                      display: "inline-block",
+                    }}
                   >
-                    + Add To Cart
-                  </Button>
-                </div>
-              </Card>
+                    <CardImg
+                      top={true}
+                      style={{ height: 150, width: 180, margin: "auto" }}
+                      src={result.img}
+                    />
+                    <CardBody>
+                      <CardTitle>{result.name}</CardTitle>
+                      <CardText>${result.price}</CardText>
+                      <CardText>{result.description}</CardText>
+                    </CardBody>
+                    <div className="card-footer">
+                      <Button
+                        outline
+                        color="primary"
+                        onClick={() => addItem(result)}
+                      >
+                        + Add To Cart
+                      </Button>
+                    </div>
+                  </Card>
+                </CardGroup>
+              </Col>
             );
           })}
           <h4 style={{ textAlign: "center", marginTop: "15px" }}>
@@ -176,33 +189,26 @@ function RestaurantList(props) {
       let restName = selectedRes[0].name;
       let dishArray = selectedRes[0].dishes;
       const mapThroughDishes = dishArray.map((dish) => (
-        <Col
-          xs="6"
-          sm="4"
-          style={{
-            padding: 0,
-            display: "inline-block",
-            marginTop: "5px",
-          }}
-          key={dish.id}
-        >
-          <Card style={{ margin: "0 10px" }}>
-            <CardImg
-              top={true}
-              style={{ height: 150, width: 180, margin: "auto" }}
-              src={dish.img}
-            />
-            <CardBody>
-              <CardTitle>{dish.name}</CardTitle>
-              <CardText>${dish.price}</CardText>
-              <CardText>{dish.description}</CardText>
-            </CardBody>
-            <div className="card-footer">
-              <Button outline color="primary" onClick={() => addItem(dish)}>
-                + Add To Cart
-              </Button>
-            </div>
-          </Card>
+        <Col xs="10" sm="4" key={dish.id}>
+          <CardGroup>
+            <Card style={{ margin: "10px", height: "450px" }}>
+              <CardImg
+                top={true}
+                style={{ height: 150, width: 180, margin: "auto" }}
+                src={dish.img}
+              />
+              <CardBody>
+                <CardTitle>{dish.name}</CardTitle>
+                <CardText>${dish.price}</CardText>
+                <CardText>{dish.description}</CardText>
+              </CardBody>
+              <div className="card-footer">
+                <Button outline color="primary" onClick={() => addItem(dish)}>
+                  + Add To Cart
+                </Button>
+              </div>
+            </Card>
+          </CardGroup>
         </Col>
       ));
 
@@ -220,7 +226,7 @@ function RestaurantList(props) {
                 addItem={addItem}
               />
               <br />
-              {mapThroughDishes}
+              <Row xs="3">{mapThroughDishes}</Row>
             </div>
           )}
         </div>
@@ -232,34 +238,47 @@ function RestaurantList(props) {
 
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
-      <Col xs="6" sm="4" key={res.id}>
-        <Card style={{ margin: "0 0.5rem 20px 0.5rem" }}>
-          <CardImg top={true} style={{ height: 200 }} src={res.img} />
-          <CardBody>
-            <CardTitle tag="h5">{res.name}</CardTitle>
-            <CardText>{res.description}</CardText>
-          </CardBody>
-          <div className="card-footer">
-            <Button
-              color="info"
-              onClick={() => {
-                if (user) {
-                  setRestaurantID(res.id);
-                  setShowAllRestaurants(false);
-                  setShowInput(false);
-                  setShowAllDishes(true);
-                  // dishElement.current.scrollIntoView({ behavior: "smooth" });
-                } else {
-                  alert(
-                    "Please log in to see the menu and add items to your cart"
-                  );
-                }
-              }}
-            >
-              See the Menu
-            </Button>
-          </div>
-        </Card>
+      <Col
+        xs="10"
+        sm="4"
+        key={res.id}
+        className="results-grid"
+        // style={{
+        //   flex: "0 0 33.3333333%",
+        //   maxWidth: "33.3333333%",
+        //   position: "relative",
+        //   width: "100%",
+        //   display: "flex",
+        // }}
+      >
+        <CardGroup>
+          <Card style={{ margin: "0 0.5rem 20px 0.5rem", height: "400px" }}>
+            <CardImg top={true} style={{ height: 200 }} src={res.img} />
+            <CardBody>
+              <CardTitle tag="h5">{res.name}</CardTitle>
+              <CardText>{res.description}</CardText>
+            </CardBody>
+            <div className="card-footer">
+              <Button
+                color="info"
+                onClick={() => {
+                  if (user) {
+                    setRestaurantID(res.id);
+                    setShowAllRestaurants(false);
+                    setShowInput(false);
+                    setShowAllDishes(true);
+                  } else {
+                    alert(
+                      "Please log in to see the menu and add items to your cart"
+                    );
+                  }
+                }}
+              >
+                See the Menu
+              </Button>
+            </div>
+          </Card>
+        </CardGroup>
       </Col>
     ));
 

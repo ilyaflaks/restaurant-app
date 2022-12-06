@@ -13,7 +13,9 @@ import { InputGroup, InputGroupAddon, Input } from "reactstrap";
 
 const cache = new InMemoryCache();
 
-const API_URL = "https://ilya-server-restaurant.herokuapp.com/graphql";
+// const API_URL = "https://ilya-server-restaurant.herokuapp.com/graphql";
+
+const API_URL = "http://localhost:4000/graphql";
 
 const client = new ApolloClient({
   uri: API_URL,

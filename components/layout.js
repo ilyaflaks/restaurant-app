@@ -11,14 +11,21 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../components/firebase-config";
+import router from "next/router";
 
 const Layout = (props) => {
   const title = "Flaks Delivery";
-  const { user, isAuthenticated, setUser } = useContext(AppContext);
+  const { user, isAuthenticated, setUser, clearCart } = useContext(AppContext);
+
+  const goHome = () => {
+    router.push("/");
+  };
 
   const logout = async () => {
     await signOut(auth);
     setUser({});
+    clearCart();
+    goHome();
   };
 
   onAuthStateChanged(auth, (currentUser) => {
